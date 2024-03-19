@@ -38,4 +38,4 @@ export const POST: APIRoute = async ({ cookies,  request }) => {
   return new Response(JSON.stringify({user}), {
     status: 200,
   })
-}
+};

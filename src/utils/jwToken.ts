@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
  * @param userId - The user ID to include in the JWT payload.
  * @returns void
  */
-const jwToken = (cookies: any, userId: any) => {
+const jwToken = (cookies: any, userId: string) => {
     const token = jwt.sign({ userId }, import.meta.env.JWT_SECRET, {
         expiresIn: '30d'
     });
