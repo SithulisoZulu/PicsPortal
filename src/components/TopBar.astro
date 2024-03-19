@@ -1,0 +1,27 @@
+---
+import { Link } from './UI'
+---
+<nav>
+    <div class="flex gap-2 md:gap-5 w-full mt-5 pb-7">
+      <div class="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none focus-within:shadow-sm">
+        <form action="/search" class="flex w-full">
+            <button>
+                <i class="fa fa-search ml-1 p-3" aria-hidden="true"></i>
+            </button>
+            <input type="text"  placeholder="Search..." name="query" class="w-full p-2 bg-white outline-none" />
+            <select name="type" class="p-2 bg-white outline-none font-semibold">
+              <option value="type" selected disabled>Select media type</option>
+              <option value="video">Video</option>
+              <option value="photo">Photo</option>
+            </select> 
+        </form>
+      </div>
+      <div class="flex gap-3">
+        <Link to={`profile/${11111}`} className="hidden md:block" >            <div class="w-9 h-9 bg-gray-400 rounded-full flex justify-between items-center text-center">SZ</div>
+      </Link>
+        <Link to={`saves/${11111}`} className="bg-black text-white rounded-md w-8 h-9  md:w-10 md:h-9 flex justify-center items-center" >  
+            <i class="bi bi-download"></i>
+      </Link>
+      </div>
+    </div>
+</nav>

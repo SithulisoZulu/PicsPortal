@@ -1,0 +1,70 @@
+---
+import { client } from '../pexels/client';
+import { PHOTOS_PER_PAGE } from '../constants';
+import MainLayout from  '../layouts/MainLayout.astro'
+import {SideBar, Pins, NoPinsFound } from '../components'
+import { Link } from '../components/UI'
+import Logosm from '../components/Logosm.astro';
+import { $user } from '../store/userStore';
+
+console.log($user.value)
+
+let loading: boolean = true
+const pins = await client.photos.curated({ per_page: PHOTOS_PER_PAGE }).finally(() => (loading = false));
+
+let sibeBarToggle: boolean = false;
+const id = "1234567890"
+const user = {
+	id     : "12345678",
+	name   : "Sithuliso",
+	surname: 'Zulu'
+}
+---
+<MainLayout SITE_PAGE="Home">
+	
+	<div class="flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out">
+		<div class="hidden md:flex h-screen flex-initial">
+			<SideBar user={$user && $user} />
+		</div>
+		<div class="flex md:hidden flex-row">
+			<div class="p-2 w-full flex flex-row justify-between items-center shadow-md">
+				<i class="fa fa-bars icon cursor-pointer" aria-hidden="true" id="Menu" ></i>
+				<Link to="/">
+					<Logosm />
+				</Link>
+				<Link to={`profile/${id}`}>
+					<div class="w-9 h-9 bg-gray-400 rounded-full flex justify-between items-center text-center">SZ</div>
+				</Link>
+			</div>
+		{
+			sibeBarToggle && (
+				<div class="fixed w-4/3 bg-white h-screen overflow-y-auto shadow-md z-10 animate-slide-in">
+					<div class="absolute w-full flex justify-end items-center p-2">
+						<i class="fa fa-times-circle cursor-pointer" aria-hidden="true"></i>
+					</div>
+					<SideBar user={$user && $user} />
+				</div>
+			)
+		}
+		</div>
+		<div class="pb-2 flex-1 h-screen overflow-y-scroll">
+			<Link to=`profile/${id}`></Link>
+
+			{
+				pins ? (
+					<Pins pins={pins && pins} />
+				)
+				:
+				(
+					<NoPinsFound item="Photos & Videos" />
+				)
+			}
+
+		</div>
+	</div>
+</MainLayout>
+<style>
+	.icon{
+		font-size:25px;
+	}
+</style>

@@ -1,0 +1,20 @@
+---
+import { clsx } from 'clsx'
+const { type, id, name, placeholder, required,  disabled, autofocus, error, value, hidden } = Astro.props
+
+interface Props {
+    type       ?: any
+    id          : string
+    name        : string
+    placeholder?: string
+    required   ?: boolean
+    disabled   ?: boolean
+    autofocus  ?: any
+    error      ?: boolean
+    value      ?: string
+    hidden     ?: boolean
+}
+---
+
+<input type={type} id={id} name={name} autocomplete={id} placeholder={placeholder} required={required} value={value} disabled={disabled} autofocus={autofocus} class={clsx(`form-input py-3 px-4 block w-full rounded-lg text-semibold border-0 ring-1 ring-gray-300 ring-inset  focus:ring-inset focus:ring-sky-600 disabled:opacity-50 disabled:pointer-events-none me-2 sm:text-sm sm:leading-6  invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500` , disabled && "opacity-80 pointer-events-none", error && "ring-2 ring-rose-600", hidden && "hidden")}
+/>

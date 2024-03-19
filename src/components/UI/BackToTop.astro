@@ -1,0 +1,32 @@
+<i class="fixed fas fa-arrow-up bg-blue-300 text-blue-500 bg-opacity-25 fw-bold p-5 rounded-lg max-w-auto cursor-pointer bottom-10 end-10 z-[60] me-15 transition-all ease-in-out duration-300 hidden" id="btn-back-to-top" style="display: none;">
+
+</i>
+
+<script>
+let mybutton = document.getElementById("btn-back-to-top");
+
+window.onscroll = function () {
+scrollFunction();
+};
+
+function scrollFunction() {
+if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+) {
+    if(mybutton){
+    mybutton.style.display = "block"
+    }
+} else {
+    if(mybutton){
+    mybutton.style.display = "none"
+    }
+}
+}
+mybutton?.addEventListener("click", backToTop);
+
+function backToTop() {
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
+}
+</script>

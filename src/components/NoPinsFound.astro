@@ -1,0 +1,18 @@
+---
+import TopBar from './TopBar.astro'
+
+interface Props {
+    item: string
+}
+const { item } = Astro.props
+---
+<div class="px-2 md:px-5">
+    <div class="bg-gray-50">
+        <TopBar />
+    </div>
+</div>
+<div class="w-fill mt-5 text-white rounded-md p-9 m-6 animate-slide-fwd bg-red-500 text-center font-bold bg-opacity-90">
+    <p class="text-sm">Oops something went wrong</p>
+    <p class="text-2xl">No {item || "content"} found</p>
+    <p class="text-sm mt-5">Try reloading the page</p>
+</div>

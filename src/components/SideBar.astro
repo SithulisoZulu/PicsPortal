@@ -1,0 +1,57 @@
+---
+import Logosm from '../components/Logosm.astro'
+import { Link } from '../components/UI'
+
+interface Props {
+    user: any,
+    activeLink?: any
+}
+const { user, activeLink } = Astro.props
+
+const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize'
+const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize'
+
+const links:any= [
+    
+{name: 'Photos', icon: "bi bi-card-image" },
+{name: 'Videos', icon: "fa fa-video-camera"},
+{name: 'Search', icon: "fa fa-search"},
+{name: 'Other'}
+]
+---
+<nav>
+    <div class="flex flex-col justify-between bg-white h-full overflow-y-scrikk min-w-210 hide-Scrollbar">
+       <div class="flex flex-col">
+            <Link to="/" className="flex px-5 gap-2 my-6 pt-1 w-190 items-center">
+                <Logosm />
+            </Link>
+            <div class="flex flex-col gap-5">
+                <Link to="/" className={!activeLink ? isActiveStyle : isNotActiveStyle}>
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    home
+                </Link> 
+                <h3 class="mt-2 px-5 text-base 2xl:text-xl">Discover more</h3>
+                {
+                    links.slice(0, links.length - 2).map((link: any)  => (
+                        <Link to={`${link.name.toLowerCase()}`}  className={activeLink?.toLowerCase() === link.name?.toLowerCase() ? isActiveStyle : isNotActiveStyle}><i class={`${link?.icon}`} aria-hidden="true"></i>
+                        {link.name}</Link>
+                    ))
+                }
+                { activeLink === 'search' &&
+                    links.slice(2, links.length - 1).map((link: any)  => (
+                        <div class={isActiveStyle}><i class={`${link?.icon}`} aria-hidden="true"></i>
+                        {link.name}</div>
+                    ))
+                }
+            </div>
+       </div>
+       {
+        user && (
+            <Link to={`profile/${user?.id}`} className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3">
+                <div class="w-9 h-9 bg-gray-400 rounded-full flex justify-between items-center text-center">SZ</div>
+                <p>{user.name}</p>
+            </Link>
+        )
+       }
+    </div>
+</nav>
