@@ -13,12 +13,12 @@ const jwToken = (cookies: any, userId: string) => {
         expiresIn: '30d'
     });
   
-    cookies.set('jwtToken',  token, {
+    cookies.set('jwToken',  token, {
         httpOnly: true,
         secure: import.meta.env.ENVIRONMENT !== 'development',
         sameSite: 'strict',
-        maxAge: 30 * 24 * 60 * 60 * 1000
+        maxAge: 30 * 24 * 60 * 60 * 1000,
     })
-}
+};
 
 export default jwToken;

@@ -5,9 +5,12 @@ import Logosm from '../components/Logosm.astro';
 import { client } from '../pexels/client';
 import { PHOTOS_PER_PAGE, VIDEOS_PER_PAGE } from '../constants';
 import { NoPinsFound, Pins, SideBar, VideoPins } from '../components';
+import { $user } from '../store/userStore';
+import Avatar from '../components/Avatar.astro';
 
 const query: string  = Astro?.url?.searchParams.get('query')!;
 const type: string | null = Astro.url.searchParams.get('type');
+
 let results =null
 if(type === "video"){
     results = await client.videos.search({ query, per_page: VIDEOS_PER_PAGE });
@@ -17,17 +20,11 @@ else {
 }
 
 let sibeBarToggle: boolean = false;
-const id = "1234567890"
-const user = {
-	id     : "12345678",
-	name   : "Sithuliso",
-	surname: 'Zulu'
-}
 ---
 <MainLayout SITE_PAGE="Search">
 	<div class="flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out">
 		<div class="hidden md:flex h-screen flex-initial">
-			<SideBar user={user && user} activeLink={'search'} />
+			<SideBar user={$user?.value && $user?.value} activeLink={'search'} />
 		</div>
 		<div class="flex md:hidden flex-row">
 			<div class="p-2 w-full flex flex-row justify-between items-center shadow-md">
@@ -35,8 +32,8 @@ const user = {
 				<Link to="/">
 					<Logosm />
 				</Link>
-				<Link to={`profile/${id}`}>
-					<div class="w-9 h-9 bg-gray-400 rounded-full flex justify-between items-center text-center">SZ</div>
+				<Link to={`profile/${$user?.value![0]?._id}`}>
+					<Avatar avatar={$user?.value![0]?.name.charAt(0)} />
 				</Link>
 			</div>
 		{
@@ -45,25 +42,25 @@ const user = {
 					<div class="absolute w-full flex justify-end items-center p-2">
 						<i class="fa fa-times-circle cursor-pointer" aria-hidden="true"></i>
 					</div>
-					<SideBar user={user && user} />
+					<SideBar user={$user?.value && $user?.value} />
 				</div>
 			)
 		}
 		</div>
 		<div class="pb-2 flex-1 h-screen overflow-y-scroll">
-			<Link to=`profile/${id}`></Link>
+			<Link to=`profile/${$user?.value![0]?._id}`></Link>
 			{
 				type === "photo" ? (results.photos.length > 0 ? (
-					<Pins pins={results} loadingText={`Search results for ${query + "s"}`} />
+					<Pins pins={results} loadingText={`Search results for ${query}`} />
 				) : (
-					<NoPinsFound item={query + ' Results '} />
+					<NoPinsFound item={`results for ${query}`} />
 				))
 				:
 				(
 					results.videos.length > 0 ? (
-						<VideoPins pins={results} loadingText={`Search results for ${query + "s"}`} />
+						<VideoPins pins={results} loadingText={`Search results for ${query}`} />
 					) : (
-						<NoPinsFound item={query + ' Results '} />
+						<NoPinsFound item={`results for ${query}`} />
 					)
 				)
 			}

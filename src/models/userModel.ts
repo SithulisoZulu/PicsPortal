@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import  bcrypt  from 'bcryptjs'
-import type { IUser } from '../interfaces/userInterface';
+import type { IUser } from '../interfaces/Iuser';
 
 const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
@@ -12,7 +12,7 @@ const userSchema = new Schema<IUser>({
 
 userSchema.pre('save', async function(next){
   if(!this.isModified('password')){
-      next();
+    next();
   }
 
   const salt = await bcrypt.genSalt(10);

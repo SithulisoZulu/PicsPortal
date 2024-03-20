@@ -1,0 +1,38 @@
+---
+import MainLayout from  '../layouts/MainLayout.astro';
+import Logo from '../components/Logo.astro';
+import AuthContainer from '../containers/AuthContainer.astro';
+import { SITE_NAME } from '../constants';
+
+const assets = '../../src/assets/'
+---
+<MainLayout SITE_PAGE="Auth">
+    <div class="flex justify-start items-center flex-col h-screen">
+        <div class="relative w-full h-full">
+            <video
+              src={`${assets}/background.mp4`}
+              autoplay
+              loop 
+              muted
+              controls={false}
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute flex flex-col justify-center items-center top-0 right-0 left-0 bottom-0  bg-blackOverlay">
+                <div class="p-2">
+                  <Logo sm={false}/>
+                </div>
+                <div class="shadow-2xl">
+                  <div
+                  data-hs-overlay="#loginModal"
+                  class="bg-white flex justify-center items-center p-2 rounded-lg cursor-pointer outline-none font-semibold"
+                  >
+                  Sign in to {SITE_NAME}
+                  <i class="fa fa-sign-in ml-2 icon" aria-hidden="true"></i>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <AuthContainer/>
+</MainLayout>

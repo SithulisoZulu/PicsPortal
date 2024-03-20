@@ -1,4 +1,4 @@
-import mongoose, { connect }  from "mongoose";
+import mongoose from "mongoose";
 
 const connectDB = async () => {
     try {
@@ -6,7 +6,7 @@ const connectDB = async () => {
         console.log(`MongoDB Connected: ${connection.connection.host}`);
     } catch (error) {
         console.error(`Error: ${error}`);
-    }
+    };
 };
 
 export default connectDB;

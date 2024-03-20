@@ -1,0 +1,7 @@
+---
+interface Props{
+    avatar: string;
+}
+const { avatar } = Astro.props;
+---
+<div class="w-9 h-9 bg-gray-400 rounded-full flex justify-center items-center text-xl font-semibold ">{avatar?.toUpperCase()}</div>

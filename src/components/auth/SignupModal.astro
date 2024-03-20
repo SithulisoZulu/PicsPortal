@@ -5,22 +5,36 @@ import ModalCloser from '../auth/ModalCloser.astro'
 import Input from '../UI/Input.astro'
 import Button from '../UI/Button.astro'
 
-console.log(API_BASE_URL )
 ---
-<div id="signupModal" class="fixed mt-24 hs-overlay hidden w-full h-full  top-0 bottom-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+<div id="signinModal" class="fixed mt-24 hs-overlay hidden w-full h-full  top-0 bottom-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
   <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-    <ModalCloser modal="#signupModal" />
+    <ModalCloser modal="#signinModal" />
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
       <div class="p-4 sm:p-7">
         <div class="text-center mb-10">
           <Logosm />
-          <h2 class="block text-2xl md:text-3xl font-bold ">Sign in to {SITE_NAME}</h2>
+          <h2 class="block text-2xl md:text-3xl font-bold ">Signup for {SITE_NAME}'s account</h2>
         </div>
 
         <div class="mt-5">
           <!-- Form -->
-          <form action={`${API_BASE_URL}/uuth/user.json`} method="post">
+          <form action={`${API_BASE_URL}/auth/register.json`} method="post">
             <div class="grid gap-y-4">
+              <!-- Form Group -->
+              <div>
+                <label for="name" class="block text-sm mb-2">Enter full name</label>
+                <div class="relative">
+                  <Input type="text" id="name" name="name" placeholder="Enter full name" required={true} autofocus={false} />
+                  <div class="hidden absolute inset-y-0 end-0 items-center pointer-events-none pe-3">
+                    <svg class="h-5 w-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                    </svg>
+                  </div>
+                </div>
+                <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
+              </div>
+              <!-- End Form Group -->
+
               <!-- Form Group -->
               <div>
                 <label for="email" class="block text-sm mb-2">Email address</label>
@@ -40,7 +54,6 @@ console.log(API_BASE_URL )
               <div>
                 <div class="flex justify-between items-center">
                   <label for="password" class="block text-sm mb-2 ">Password</label>
-                  <a class="text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none cursor-pointer" data-hs-overlay="#hs-modal-recover-account">Forgot password?</a>
                 </div>
                 <div class="relative">
                   <Input type="password" id="password" name="password" placeholder="Enter your password" required={true} autofocus={false} />
@@ -54,15 +67,14 @@ console.log(API_BASE_URL )
               </div>
               <!-- End Form Group -->
 
-              <Button type="submit">Sign in</Button>
-              <Button type="submit" outline={true}>Forgot password?</Button>
+              <Button type="submit">Signup</Button>
             </div>
           </form>
           <!-- End Form -->
 
           <p class="mt-5 text-center text-sm text-gray-600 dark:text-gray-400">
-            Don't have an account yet?
-            <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 cursor-pointer" data-hs-overlay="#hs-modal-signup">
+            Already have an account?
+            <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 cursor-pointer" data-hs-overlay="#loginModal">
               Sign up here
             </a>
           </p>

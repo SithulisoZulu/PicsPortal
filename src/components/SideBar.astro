@@ -1,26 +1,23 @@
 ---
 import Logosm from '../components/Logosm.astro'
+import Avatar from '../components/Avatar.astro';
 import { Link } from '../components/UI'
+import { API_BASE_URL, links } from '../constants'
 
 interface Props {
     user: any,
     activeLink?: any
 }
 const { user, activeLink } = Astro.props
+const profileLetter = user[0]?.name.charAt(0);
 
 const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize'
 const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize'
 
-const links:any= [
-    
-{name: 'Photos', icon: "bi bi-card-image" },
-{name: 'Videos', icon: "fa fa-video-camera"},
-{name: 'Search', icon: "fa fa-search"},
-{name: 'Other'}
-]
+
 ---
 <nav>
-    <div class="flex flex-col justify-between bg-white h-full overflow-y-scrikk min-w-210 hide-Scrollbar">
+    <div class="flex flex-col justify-between bg-white h-full min-w-210 hide-Scrollbar">
        <div class="flex flex-col">
             <Link to="/" className="flex px-5 gap-2 my-6 pt-1 w-190 items-center">
                 <Logosm />
@@ -43,15 +40,43 @@ const links:any= [
                         {link.name}</div>
                     ))
                 }
+                {
+                    user[0] ? 
+                    (
+                        <div class={isNotActiveStyle}>
+                            <form action={`${API_BASE_URL}/auth/logout.json`}>
+                                <button id="logout" class="focus:text-gray-400"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i>Logout
+                                    <span>
+                                        <div id="logoutLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-black rounded-full dark:text-black" role="status" aria-label="loading">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    )
+                    :
+                    (
+                        <a href="auth" class={isNotActiveStyle}><i class="fa fa-sign-out mr-0" aria-hidden="true"></i>Signin</a>
+                    )
+                }
             </div>
        </div>
        {
-        user && (
-            <Link to={`profile/${user?.id}`} className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3">
-                <div class="w-9 h-9 bg-gray-400 rounded-full flex justify-between items-center text-center">SZ</div>
-                <p>{user.name}</p>
+        user[0] && (
+            <Link to={`profile/${user[0]?._id}`} className="flex my-5 mb-3 gap-2 p-2 items-center bg-white rounded-lg shadow-lg mx-3">
+                <Avatar avatar={profileLetter} />
+                <p class="font-bold">{user[0]?.name}</p>
             </Link>
         )
        }
     </div>
 </nav>
+<script>
+    const btn = document.getElementById("logout") as HTMLElement;
+
+    btn.addEventListener("click", () => {
+        var element = document.getElementById("logoutLoader");
+        if(element) element.style.display = "inline-block";
+    })
+</script>

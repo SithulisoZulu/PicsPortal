@@ -2,7 +2,7 @@
 const { text } = Astro.props
 ---
 
-  <div class="flex felx-col justify-center items-center w-full h-full" id="loader">
+  <div class="flex felx-col justify-center items-center w-full h-full transition-all duration-500 ease-in-out" id="loader">
     <div class="flex flex-col">
         <div class="flex justify-center">
             <span class='sr-only'>{ text ? text : "Loading..." }</span>

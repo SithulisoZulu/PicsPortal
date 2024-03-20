@@ -4,6 +4,7 @@ interface ImportMetaEnv {
     readonly CONNECTION_STRING: string;
     readonly ENVIRONMENT      : string;
     readonly JWT_SECRET       : string;
+    readonly CLOUD_NAME       : string;
   }
   
   interface ImportMeta {

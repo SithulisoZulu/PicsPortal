@@ -1,5 +1,5 @@
 import { atom } from 'nanostores';
-import type { IUser } from '../interfaces/userInterface';
+import type { IUser } from '../interfaces/Iuser';
 
 export const $user = atom<IUser[]>([])
 /**
@@ -9,5 +9,11 @@ export const $user = atom<IUser[]>([])
  * @returns void
  */
 export function addUser(user: IUser) {
-    $user.set([user]);
-}
+    if(user._id !== '' && user._id !== undefined && user._id !== null)
+    {
+        $user.set([user]);
+    }
+    else{
+        $user.set([]);
+    };
+};

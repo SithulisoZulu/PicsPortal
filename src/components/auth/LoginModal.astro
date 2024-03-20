@@ -18,22 +18,8 @@ import Button from '../UI/Button.astro'
 
         <div class="mt-5">
           <!-- Form -->
-          <form action={`${API_BASE_URL}/auth/user.json`} method="post">
+          <form action={`${API_BASE_URL}/auth/login.json`} method="post">
             <div class="grid gap-y-4">
-              <!-- Form Group -->
-              <div>
-                <label for="name" class="block text-sm mb-2">Enter full name</label>
-                <div class="relative">
-                  <Input type="text" id="name" name="name" placeholder="Enter full name" required={true} autofocus={false} />
-                  <div class="hidden absolute inset-y-0 end-0 items-center pointer-events-none pe-3">
-                    <svg class="h-5 w-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                    </svg>
-                  </div>
-                </div>
-                <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
-              </div>
-              <!-- End Form Group -->
 
               <!-- Form Group -->
               <div>
@@ -76,7 +62,7 @@ import Button from '../UI/Button.astro'
 
           <p class="mt-5 text-center text-sm text-gray-600 dark:text-gray-400">
             Don't have an account yet?
-            <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 cursor-pointer" data-hs-overlay="#signupModal">
+            <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 cursor-pointer" data-hs-overlay="#signinModal">
               Sign up here
             </a>
           </p>
@@ -85,3 +71,26 @@ import Button from '../UI/Button.astro'
     </div>
   </div>
 </div>
+<!-- <script>
+  import { addImage } from '../../store/imageBlobStore.ts'
+const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+
+fileInput?.addEventListener('change', (event) => {
+    const selectedFile = (event?.target as HTMLInputElement)?.files[0]!;
+    
+    if (selectedFile) {
+      addImage(selectedFile);
+        console.log('Selected file:', selectedFile);
+    } else {
+        console.log('No file selected');
+    }
+});
+
+
+
+//   import { imageBlob } from '../../cloudinary/photoUpload.ts'
+//   document.getElementById("uploadPhoto")?.addEventListener("click", function(){
+//     imageBlob("me");
+//     console.log("clicked")
+// }, false);
+</script> -->
