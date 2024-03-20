@@ -4,7 +4,7 @@ import { Link } from '../components/UI'
 import Logosm from '../components/Logosm.astro';
 import { client } from '../pexels/client';
 import { PHOTOS_PER_PAGE, VIDEOS_PER_PAGE } from '../constants';
-import { NoPinsFound, Pins, SideBar, VideoPins } from '../components';
+import { Avatar, FeatureComingSoon, NoPinsFound, Pins, SideBar, VideoPins } from '../components';
 
 import { $user } from '../store/userStore';
 
@@ -34,7 +34,7 @@ let sibeBarToggle: boolean = false;
 					<Logosm />
 				</Link>
 				<Link to={`profile/${$user?.value![0]?._id!}`}>
-					<div class="w-9 h-9 bg-gray-400 rounded-full flex justify-between items-center text-center">SZ</div>
+					<Avatar avatar={$user?.value![0]?.name!.charAt(0)}/>
 				</Link>
 			</div>
 		{
@@ -53,7 +53,7 @@ let sibeBarToggle: boolean = false;
             {
                 slug === "photos" ? (
 					pins ? (
-						<Pins pins={pins && pins} loadingText={slug} />
+						<Pins pins={pins && pins.photos} loadingText={slug} show={true}/>
 					)
 					:
 					(
@@ -62,7 +62,8 @@ let sibeBarToggle: boolean = false;
                 )
                 : 
                 (
-                    <VideoPins pins={pins} loadingText={slug} />
+					<FeatureComingSoon />
+                    // <VideoPins pins={pins} loadingText={slug} />
                 )
             }
 		</div>

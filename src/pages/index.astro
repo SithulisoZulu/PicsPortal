@@ -1,20 +1,11 @@
 ---
-import { client } from '../pexels/client';
-import { PHOTOS_PER_PAGE } from '../constants';
 import MainLayout from  '../layouts/MainLayout.astro'
-import {SideBar, Pins, NoPinsFound } from '../components'
-import { Link } from '../components/UI'
-import Logosm from '../components/Logosm.astro';
+import {SideBar, Pins, NoPinsFound, Logosm, Avatar, Link } from '../components'
 import { $user } from '../store/userStore';
-import { $image } from '../store/imageBlobStore';
-import Avatar from '../components/Avatar.astro';
+import { getPins } from '../utils/Pins'
 
-let loading: boolean = true
-
-const pins = await client.photos.curated({ per_page: PHOTOS_PER_PAGE }).finally(() => (loading = false));
-
+const pins = await getPins()
 let sibeBarToggle: boolean = false;
-
 ---
 <MainLayout SITE_PAGE="Home">
 	
@@ -48,7 +39,7 @@ let sibeBarToggle: boolean = false;
 
 			{
 				pins ? (
-					<Pins pins={pins && pins} />
+					<Pins pins={pins && pins.photos} loadingText="content" show={true} />
 				)
 				:
 				(

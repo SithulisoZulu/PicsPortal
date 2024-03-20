@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro'
 import { Link } from '../components/UI'
-import Logosm from '../components/Logosm.astro';
+import { Logosm, FeatureComingSoon } from '../components';
 import { client } from '../pexels/client';
 import { PHOTOS_PER_PAGE, VIDEOS_PER_PAGE } from '../constants';
 import { NoPinsFound, Pins, SideBar, VideoPins } from '../components';
@@ -51,17 +51,18 @@ let sibeBarToggle: boolean = false;
 			<Link to=`profile/${$user?.value![0]?._id}`></Link>
 			{
 				type === "photo" ? (results.photos.length > 0 ? (
-					<Pins pins={results} loadingText={`Search results for ${query}`} />
+					<Pins pins={results.photos} loadingText={`Search results for ${query}`} show={true}/>
 				) : (
 					<NoPinsFound item={`results for ${query}`} />
 				))
 				:
 				(
-					results.videos.length > 0 ? (
-						<VideoPins pins={results} loadingText={`Search results for ${query}`} />
-					) : (
-						<NoPinsFound item={`results for ${query}`} />
-					)
+					<FeatureComingSoon />
+					// results.videos.length > 0 ? (
+					// 	<VideoPins pins={results} loadingText={`Search results for ${query}`} />
+					// ) : (
+					// 	<NoPinsFound item={`results for ${query}`} />
+					// )
 				)
 			}
 			

@@ -1,0 +1,18 @@
+---
+import {  Logosm, TopBar, FeatureComingSoonDetails } from '../components'
+---
+<div>
+    <div class="px-2 md:px-5">
+        <TopBar />
+    </div>
+    <div class="mt-52 flex flex-col justify-center items-center">
+        <Logosm />
+        <h1 class="text-4xl font-bold mb-4">Coming Soon</h1>
+        <p class="text-lg mb-8 px-4 md:px-0">We're working hard to bring you something awesome. Stay tuned!</p>
+        <div class="flex justify-center items-center space-x-4">
+            <div data-hs-overlay="#hs-vertically-centered-modal" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md cursor-pointer">Learn More</div>
+            <a href="contact" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">Contact Us</a>
+        </div>
+    </div>
+    <FeatureComingSoonDetails />
+</div>
