@@ -20,7 +20,7 @@ export const login = async (cookies: AstroCookies , request: Request) => {
       JSON.stringify({
         message: "Missing required fields",
       }),
-      { status: 400 }
+      { status: 404 }
     );
   }
 
@@ -31,7 +31,12 @@ export const login = async (cookies: AstroCookies , request: Request) => {
     jwToken(cookies, user._id.toString());
   }
   else{
-    return new Response("Something went wrong", { status: 500 });
+    return new Response(
+      JSON.stringify({
+        message: "Something went wrong ",
+      }),
+      { status: 500 }
+    );
   }
 }
 

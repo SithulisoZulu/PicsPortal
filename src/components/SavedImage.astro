@@ -2,12 +2,17 @@
 import Image from "astro/components/Image.astro";
 import Link from '../components/UI/Link.astro'
 import  img  from '../assets/images/img.jpg'
+
+interface Props {
+    like: any;
+}
+const { like } = Astro.props
 ---
 
 <div class="m-2">
     <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo hover:shadow-sm" id="Photo"
     >
-        <Image width={'350'} height={'350'} src={img} alt="img" class="rounded-md" /> 
+        <Image width={'350'} height={'350'} src={like.photoUrl} alt="img" class="rounded-md" /> 
         
         <div class="hidden absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu" id="menu">
             <div class="flex items-center justify-between">
@@ -19,7 +24,7 @@ import  img  from '../assets/images/img.jpg'
                         <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
                     </a>
                 </div>
-                <div>
+                <div class="hidden">
                     <form action="/">                           
                         <button type="submit" class={`${"bg-green-500"} opacity-70 hover:opacity-100 text-white px-3 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`}>
                             Saved
@@ -28,11 +33,9 @@ import  img  from '../assets/images/img.jpg'
                 </div>
             </div>
             <div class="flex justify-between items-start gap-2 w-full">
-                <Link to={"/"} className="flex gap-2 mb-2 bg-white items-center text-black font-bold p-1 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md " target="_blank">
-                    <i class="bi bi-person-circle icon"></i> 
-                    <p class="font-bold capitalize mb-1">
-                        {'Sithuliso'}
-                    </p>
+                <Link to={`/details/${like.photoId}`} className="flex gap-2 mb-2 bg-white items-center text-black font-bold p-1 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md " target="_blank">
+                    <i class="bi bi-arrow-up-right-circle-fill"></i>
+                    {`view details...`}
                 </Link>
                 <div>
                     <form action="/">                           

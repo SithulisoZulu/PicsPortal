@@ -9,11 +9,6 @@ export const POST: APIRoute = async ({ cookies,  request, redirect }) => {
   const user = await login(cookies, request)
   .then((data) => data)
   .catch(() => null);
-  
-  if (!user)
-  {
-    console.log("User not found");
-  }
 
   return redirect("/")
 };

@@ -1,0 +1,18 @@
+---
+import { getLikes } from '../utils/getLikes'
+const likes = await  getLikes() || [];
+
+console.log(likes)
+---
+
+<div>
+  <h1>{
+    
+      likes.map((like: any) => {
+        <p>hello 
+          {
+            like.userId
+          }</p>
+      })
+    }</h1>
+</div>

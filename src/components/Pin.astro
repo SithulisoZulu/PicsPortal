@@ -1,13 +1,19 @@
 ---
+import { API_BASE_URL } from '../constants'
 import { Link } from './UI'
 import Image from 'astro/components/Image.astro'
+import type { IPin } from '../interfaces/IPin'
+import type { ILike } from '../interfaces/ILike'
 
 interface Props {
-    pin: {}
+    pin: IPin
+    likes: any
 }
-const { pin } = Astro.props
+const { pin, likes } = Astro.props
 
-const saved = true
+const saved = likes?.some((like: ILike) => {
+  return like.photoId.toString() === pin.id.toString();
+})
 ---
  <div class="m-2">
     <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo" id="Photo"
@@ -25,9 +31,11 @@ const saved = true
                     </a>
                 </div>
                 {
-                    !saved  && (
+                    !saved && (
                     <div>
-                        <form action="/">                           
+                        <form action={`${API_BASE_URL}/likes/like.json`}  method="post">
+                            <input type="text" name="photoUrl" id="photoUrl" class="sr-only" value={pin.src.original ? pin.src.original : pin.src.medium}>                           
+                            <input type="text" name="photoId" id="photoId" class="sr-only" value={pin?.id ? pin?.id : '00000000'}>                           
                             <button type="submit" class={`${ saved  ? "bg-red-500" : "bg-green-500"} opacity-70 hover:opacity-100 text-white px-3 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`}>
                                 {
                                     saved ? 'Saved' : 'Save'
@@ -46,7 +54,7 @@ const saved = true
                 {
                     saved && (
                         <div>
-                            <form action="/">                           
+                            <form action="/api/likes/like.json" method="delete">  
                                 <button type="submit" class={`${ saved  ? "bg-red-500" : "bg-red-500"} p-1 opacity-70 hover:opacity-100 text-white px-2 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none mb-2`}>
                                     <i class="bi bi-trash2-fill"></i>
                                 </button>
