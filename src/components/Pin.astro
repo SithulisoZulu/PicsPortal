@@ -6,21 +6,21 @@ import type { IPin } from '../interfaces/IPin'
 import type { ILike } from '../interfaces/ILike'
 
 interface Props {
-    pin: IPin
-    likes: any
+    pin   : IPin
+    likes : any
+    target: string
 }
-const { pin, likes } = Astro.props
+const { pin, likes, target } = Astro.props
 
 const saved = likes?.some((like: ILike) => {
   return like.photoId.toString() === pin.id.toString();
 })
 ---
- <div class="m-2">
-    <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo" id="Photo"
-    >
+<div class="m-2">
+    <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo" id="Photo">
         <Image width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="lazy" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
         />
-        <div class="hidden absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu" id="menu">
+        <div class="hidden absolute top-0 w-full h-full flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu transition-all duration-500 ease-in-out" id="menu">
             <div class="flex items-center justify-between">
                 <div class="flex gap-2">
                     <a id="download" href={pin.src.original ? pin.src.original : pin.src.medium} download="image.jpg"
@@ -34,12 +34,13 @@ const saved = likes?.some((like: ILike) => {
                     !saved && (
                     <div>
                         <form action={`${API_BASE_URL}/likes/like.json`}  method="post">
-                            <input type="text" name="photoUrl" id="photoUrl" class="sr-only" value={pin.src.original ? pin.src.original : pin.src.medium}>                           
-                            <input type="text" name="photoId" id="photoId" class="sr-only" value={pin?.id ? pin?.id : '00000000'}>                           
-                            <button type="submit" class={`${ saved  ? "bg-red-500" : "bg-green-500"} opacity-70 hover:opacity-100 text-white px-3 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`}>
-                                {
-                                    saved ? 'Saved' : 'Save'
-                                }
+                            <input type="text" name="photoUrl" id="photoUrl" class="sr-only" value={pin.src.original ? pin.src.original : pin.src.medium}/>                           
+                            <input type="text" name="photoId" id="photoId" class="sr-only" value={pin?.id ? pin?.id : '00000000'} />                           
+                            <button type="submit" class={`bg-rose-500 opacity-70 hover:opacity-100 text-white  p-2 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`} id="like">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                <div id="likeLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
                             </button>
                         </form>
                     </div>
@@ -54,25 +55,27 @@ const saved = likes?.some((like: ILike) => {
                 {
                     saved && (
                         <div>
-                            <form action="/api/likes/like.json" method="delete">  
-                                <button type="submit" class={`${ saved  ? "bg-red-500" : "bg-red-500"} p-1 opacity-70 hover:opacity-100 text-white px-2 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none mb-2`}>
-                                    <i class="bi bi-trash2-fill"></i>
-                                </button>
-                            </form>
+                            <button type="submit" class={`${ saved  ? "bg-red-500" : "bg-red-500"} p-1 opacity-70 hover:opacity-100 text-white px-2 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none mb-2 transition-all duration-500 ease-in-out`} data-id={likes?.find((like: ILike) => like.photoId === pin.id.toString())?._id} aria-label="Delete like">
+                                <i class="bi bi-trash2-fill"></i>
+
+                                <div id="dealeteLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </button>
                         </div>
                     )
                 }
             </div>
           </div>
-
     </div>
-    <Link to={pin?.photographer_url} className="flex gap-2 mb-2 items-center" target="_blank">
+</div>
+    <Link to={pin?.photographer_url} className="flex gap-2 mb-2 items-center" target={target}>
         <i class="bi bi-person-circle icon"></i> 
         <p class="font-bold capitalize mb-1">
             {pin?.photographer}
         </p>
     </Link>
- </div>
+</div>
  <style>
 	.icon{
 		font-size:18px;
@@ -82,6 +85,7 @@ const saved = likes?.some((like: ILike) => {
 document.querySelectorAll('.Photo').forEach(photo => {
     const menu = photo.querySelector(".menu");
     photo.addEventListener("mouseover", () => {
+        menu?.classList.add('flex');
         menu?.classList.remove('hidden');
     });
 
@@ -92,22 +96,41 @@ document.querySelectorAll('.Photo').forEach(photo => {
 });
 
 
-function downloadImage(event: any) {
-    event.preventDefault(); // Prevent the default behavior of the anchor tag
+const deleteBtns = document.querySelectorAll('[data-id') as NodeListOf<HTMLButtonElement>;
+
+deleteBtns.forEach(btn => btn.addEventListener('click', async (e)=> {
+    document.getElementById('dealeteLoader')?.classList?.remove('hidden')
+    const id = btn.dataset.id
+    const res = await fetch(`/api/likes/${id}.json`, {
+        method: 'DELETE'
+    })
+    const { message } = await res.json();
+    console.log(message);
+    location.reload();
+}))
+
+const likeBtns = document.querySelectorAll("#like") as NodeListOf<HTMLButtonElement>;
+
+likeBtns.forEach(btn => btn.addEventListener("click", () => {
+    document.getElementById('likeLoader')?.classList?.remove('hidden')
+}))
+
+// function downloadImage(event: any) {
+//     event.preventDefault(); // Prevent the default behavior of the anchor tag
     
-    const imageUrl = event.target.getAttribute('href'); // Get the image URL from the href attribute
+//     const imageUrl = event.target.getAttribute('href'); // Get the image URL from the href attribute
     
-    fetch(imageUrl)
-        .then(response => response.blob())
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'image.jpg'; // Set the filename for the downloaded image
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        });
-}
+//     fetch(imageUrl)
+//         .then(response => response.blob())
+//         .then(blob => {
+//             const url = window.URL.createObjectURL(blob);
+//             const a = document.createElement('a');
+//             a.style.display = 'none';
+//             a.href = url;
+//             a.download = 'image.jpg'; // Set the filename for the downloaded image
+//             document.body.appendChild(a);
+//             a.click();
+//             window.URL.revokeObjectURL(url);
+//         });
+// }
 </script>

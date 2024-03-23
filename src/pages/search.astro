@@ -51,7 +51,7 @@ let sibeBarToggle: boolean = false;
 			<Link to=`profile/${$user?.value![0]?._id}`></Link>
 			{
 				type === "photo" ? (results.photos.length > 0 ? (
-					<Pins pins={results.photos} loadingText={`Search results for ${query}`} show={true}/>
+					<Pins pins={results.photos} loadingText={`Search results for ${query}`} show={true} target="_blank"/>
 				) : (
 					<NoPinsFound item={`results for ${query}`} />
 				))

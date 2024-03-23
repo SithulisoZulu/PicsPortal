@@ -1,8 +1,9 @@
 ---
 import { getLikes } from '../utils/getLikes'
 const likes = await  getLikes() || [];
+import {  transporter } from '../emails/resend'
 
-console.log(likes)
+transporter
 ---
 
 <div>

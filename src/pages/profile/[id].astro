@@ -22,8 +22,8 @@ const liked = await  getLikes()
                 <button type="button" class="active text-gray-500 hover:text-black font-semibold hs-tab-active:bg-black hs-tab-active:text-white hs-tab-active:font-bold rounded-full p-3 px-4 w-[190px] mr-5 transition-all duration-500 ease-in capitalize" id="unstyled-tabs-item-1" data-hs-tab="#unstyled-tabs-1" aria-controls="unstyled-tabs-1" role="tab">
                     Saved Photos <span class="text-gray-400 font-normal">{liked.length}</span>
                 </button>
-                <button type="button" class="text-gray-500 hover:text-black font-semibold hs-tab-active:bg-black hs-tab-active:text-white hs-tab-active:font-bold rounded-full p-3 px-4 w-[190px] mr-5 transition-all duration-500 ease-in capitalize" id="unstyled-tabs-item-2" data-hs-tab="#unstyled-tabs-2" aria-controls="unstyled-tabs-2" role="tab">
-                  Saved Videos <span class="text-gray-400 font-normal">70</span>
+                <button type="button" class="text-gray-500 hover:text-black font-semibold hs-tab-active:bg-black hs-tab-active:text-white hs-tab-active:font-bold rounded-full p-3 px-4 w-[190px] mr-5 transition-all duration-500 ease-in capitalize" id="unstyled-tabs-item-2" data-hs-tab="#unstyled-tabs-2" aria-controls="unstyled-tabs-2" role="tab" >
+                  Saved Videos <span class="text-gray-400 font-normal">0</span>
                 </button>
                 <button type="button" class="text-gray-500 hover:text-black font-semibold hs-tab-active:bg-black hs-tab-active:text-white hs-tab-active:font-bold rounded-full p-3 px-4 w-[190px] mr-5 transition-all duration-500 ease-in capitalize" id="unstyled-tabs-item-2" data-hs-tab="#unstyled-tabs-3" aria-controls="unstyled-tabs-2" role="tab">
                   Update Profile
@@ -118,7 +118,7 @@ const liked = await  getLikes()
                                 </div>
                                 <!-- End Form Group -->
                   
-                                <Button type="submit">Update details</Button>
+                                <Button type="submit">Update details <i class="fa fa-edit"></i></Button>
                               </div>
                             </form>
                             <!-- End Form -->

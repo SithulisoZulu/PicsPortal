@@ -4,18 +4,20 @@ import Pin from '../components/Pin.astro'
 import Loader from '../components/Loader.astro'
 import { getLikes } from '../utils/getLikes'
 import type { IPin } from '../interfaces/IPin'
+import BackToTop from './UI/BackToTop.astro'
 interface Props {
     pins        : IPin[],
     loadingText?: string
     show        : boolean
+    target      : string
 }
-const { pins, loadingText, show } = Astro.props
+const { pins, loadingText, show, target } = Astro.props
 
 const likes = await getLikes()
 
 let loading: boolean = true
 ---
-<div class="px-2 md:px-5">
+<div class="px-2 md:px-5 relative">
     <div class="bg-gray-50">
         {
             show && (
@@ -28,11 +30,12 @@ let loading: boolean = true
         loading && <Loader text={loadingText} />
     }
 
-    <div class="w-[350px] max-sm:flex max-sm:flex-col justify-center columns-1 md:columns-3 lg:columns-3 xl:columns-4 gap-3 md:w-[600px] lg:w-[1100px] xl:w-[1300px] space-y-3 pb-28 p-3 lg:px-8 lg:py-16 mx-auto mt-15 animate-slide-fwd"
+    <div class="w-[350px] max-sm:flex max-sm:flex-col justify-center columns-1 md:columns-3 lg:columns-3 xl:columns-4 gap-3 md:w-[600px] lg:w-[1100px] xl:w-[1300px] space-y-3 pb-28 p-3 lg:px-8 lg:py-16 mx-auto mt-15 animate-slide-fwd relative"
     >
         {
-            pins?.map((pin: IPin) => <Pin pin={pin} likes={likes} />)
+            pins?.map((pin: IPin) => <Pin pin={pin} likes={likes} target={target} />)
         }
+    <BackToTop />
     </div>
 </div>
 <script>

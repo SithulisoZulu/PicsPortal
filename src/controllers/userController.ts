@@ -29,13 +29,18 @@ export const login = async (cookies: AstroCookies , request: Request) => {
   if(user && (await user.matchPassword(password))){
     addUser(user);
     jwToken(cookies, user._id.toString());
+    return new Response(JSON.stringify({
+      _id     : user._id,
+      name    : user.name,
+      password: user.password
+    }));
   }
   else{
     return new Response(
       JSON.stringify({
-        message: "Something went wrong ",
+        message: "Invalid email or password",
       }),
-      { status: 500 }
+      { status: 401 }
     );
   }
 }
@@ -70,14 +75,23 @@ export const register = async (cookies: AstroCookies, request: Request) => {
 
   const user = await User.create({ name, email, password});
 
-  addUser(user);
-  jwToken(cookies, user._id.toString());
-
-  if(!user){
-    return new Response("User not created", {status: 400});
-  };
-  
-  return user;
+  if(user){
+    addUser(user);
+    jwToken(cookies, user._id.toString());
+    return new Response(JSON.stringify({
+      _id     : user._id,
+      name    : user.name,
+      password: user.password
+    }));
+  }
+  else{
+    return new Response(
+      JSON.stringify({
+        message: "Something went wrong ",
+      }),
+      { status: 500 }
+    );
+  }
 }
 
 export const logout = async(cookies: AstroCookies, request: Request) => {

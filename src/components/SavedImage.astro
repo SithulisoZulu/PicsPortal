@@ -1,10 +1,10 @@
 ---
 import Image from "astro/components/Image.astro";
 import Link from '../components/UI/Link.astro'
-import  img  from '../assets/images/img.jpg'
+import type { ILike } from "../interfaces/ILike";
 
 interface Props {
-    like: any;
+    like: ILike;
 }
 const { like } = Astro.props
 ---
@@ -17,7 +17,7 @@ const { like } = Astro.props
         <div class="hidden absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu" id="menu">
             <div class="flex items-center justify-between">
                 <div class="flex gap-2">
-                    <a id="download" href={'/'} download="image.jpg"
+                    <a id="download" href={like.photoUrl} download="image.jpg"
                     class="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
                     onclick="downloadImage(event)"
                     >
@@ -38,13 +38,31 @@ const { like } = Astro.props
                     {`view details...`}
                 </Link>
                 <div>
-                    <form action="/">                           
-                        <button type="submit" class={`${"bg-red-500"} p-1 opacity-70 hover:opacity-100 text-white px-2 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none mb-2`}>
-                            <i class="bi bi-trash2-fill"></i>
-                        </button>
-                    </form>
+                    <button type="submit" class={`bg-red-500 p-1 opacity-70 hover:opacity-100 text-white px-2 py-1 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none mb-2 transition-all duration-500 ease-in-out`} data-id={like._id} aria-label="Delete like">
+                        <i class="bi bi-trash2-fill"></i>
+
+                        <div id="dealeteLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading"
+                        >
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
                 </div>
             </div>
           </div>
     </div>
  </div>
+ <script>
+    const deleteBts = document.querySelectorAll('[data-id') as NodeListOf<HTMLButtonElement>;
+
+    deleteBts.forEach(btn => btn.addEventListener('click', async (e)=> {
+        document.getElementById('dealeteLoader')?.classList?.remove('hidden')
+        const id = btn.dataset.id
+        const res = await fetch(`/api/likes/${id}.json`, {
+            method: 'DELETE'
+        })
+        const { message } = await res.json();
+        console.log(message);
+        location.reload();
+    }))
+
+ </script>

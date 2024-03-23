@@ -1,11 +1,12 @@
 ---
 import SavedImage from '../components/SavedImage.astro';
+import type { ILike } from '../interfaces/ILike';
 const liked =  Astro.props
 ---
 <div>
     <div class="grid grid-cols-3 gap-1 mt-5">
         {
-            liked.liked?.map((like: any) => 
+            liked.liked?.map((like: ILike) => 
                 <SavedImage like={like} />
             )
         }

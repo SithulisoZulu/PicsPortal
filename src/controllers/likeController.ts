@@ -31,11 +31,7 @@ export const getUserLikes = async(userId: string) => {
  return await Like.find().where('userId').equals(userId).sort('-createdAt');
 };
 
-export const deleteLike = async(request: Request) => {
-  const data = await request.formData();
-  const likeId = data.get("likeId")?.valueOf();
-
-  if(!likeId) return new Response("Invalid request", {status: 400});
-
-  return await Like.findByIdAndDelete(likeId);
+export const deleteLike = async(id: string) => {
+  if(!id) return new Response("Invalid request", {status: 400});
+  return await Like.findByIdAndDelete(id);
 }
