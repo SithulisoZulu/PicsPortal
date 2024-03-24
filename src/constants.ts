@@ -24,4 +24,4 @@ export const links:{}[]= [
      {name: 'Videos', icon: "fa fa-video-camera"},
      {name: 'Search', icon: "fa fa-search"},
      {name: 'Other'}
-     ]
+]

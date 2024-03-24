@@ -6,6 +6,26 @@ import type { ILike } from "../interfaces/ILike";
 interface Props {
     like: ILike;
 }
+
+const downloadImage = (e: any) => {
+  e.preventDefault(); // Prevent the default behavior of the anchor tag
+    
+    const imageUrl = e.target.getAttribute('href'); // Get the image URL from the href attribute
+    
+    fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'image.jpg'; // Set the filename for the downloaded image
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        });
+}
+
 const { like } = Astro.props
 ---
 
@@ -14,12 +34,12 @@ const { like } = Astro.props
     >
         <Image width={'350'} height={'350'} src={like.photoUrl} alt="img" class="rounded-md" /> 
         
-        <div class="hidden absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu" id="menu">
+        <div class="hidden absolute top-0 w-[350px] rounded-md  h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu" id="menu">
             <div class="flex items-center justify-between">
                 <div class="flex gap-2">
-                    <a id="download" href={like.photoUrl} download="image.jpg"
+                    <a id="download" href={like.photoUrl} download="image.jpg" download
                     class="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
-                    onclick="downloadImage(event)"
+                    onclick="downloadImage()"
                     >
                         <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
                     </a>

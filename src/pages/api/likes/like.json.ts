@@ -29,5 +29,8 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     console.log("failed to like pin");
   }
 
-  return redirect("/")
+  return new Response(JSON.stringify({
+    message: like,
+    status: 200
+  }))
 };

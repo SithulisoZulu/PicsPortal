@@ -23,7 +23,7 @@ const saved = likes?.some((like: ILike) => {
         <div class="hidden absolute top-0 w-full h-full flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu transition-all duration-500 ease-in-out" id="menu">
             <div class="flex items-center justify-between">
                 <div class="flex gap-2">
-                    <a id="download" href={pin.src.original ? pin.src.original : pin.src.medium} download="image.jpg"
+                    <a id="download" href={pin.src.original ? pin.src.original : pin.src.medium}
                     class="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
                     onclick="downloadImage(event)"
                     >
@@ -33,16 +33,16 @@ const saved = likes?.some((like: ILike) => {
                 {
                     !saved && (
                     <div>
-                        <form action={`${API_BASE_URL}/likes/like.json`}  method="post">
-                            <input type="text" name="photoUrl" id="photoUrl" class="sr-only" value={pin.src.original ? pin.src.original : pin.src.medium}/>                           
-                            <input type="text" name="photoId" id="photoId" class="sr-only" value={pin?.id ? pin?.id : '00000000'} />                           
-                            <button type="submit" class={`bg-rose-500 opacity-70 hover:opacity-100 text-white  p-2 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`} id="like">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                                <div id="likeLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                            </button>
-                        </form>
+                        <button type="submit" class={`bg-rose-500 opacity-70 hover:opacity-100 text-white  p-2 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`} id="likeButton"
+                        data-photo-url={pin.src.original ? pin.src.original : pin.src.medium}
+                        data-photo-id={pin?.id ? pin?.id : '00000000'} 
+                        >
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                            <div id="likeLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading"
+                            >
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
                     </div>
                     )
                 }
@@ -95,42 +95,68 @@ document.querySelectorAll('.Photo').forEach(photo => {
 
 });
 
+interface Like {
+  id: string;
+}
 
-const deleteBtns = document.querySelectorAll('[data-id') as NodeListOf<HTMLButtonElement>;
+const deleteBtns = document.querySelectorAll<HTMLButtonElement>('[data-id]');
 
-deleteBtns.forEach(btn => btn.addEventListener('click', async (e)=> {
-    document.getElementById('dealeteLoader')?.classList?.remove('hidden')
-    const id = btn.dataset.id
-    const res = await fetch(`/api/likes/${id}.json`, {
-        method: 'DELETE'
-    })
-    const { message } = await res.json();
-    console.log(message);
+deleteBtns.forEach(btn => {
+  btn.addEventListener('click', async (e) => {
+    deleteLike(btn, e);
+  });
+});
+
+async function deleteLike(btn: HTMLButtonElement, e: Event) {
+  e.preventDefault();
+  const loader = btn.children[1] as HTMLDivElement;
+  loader.classList.remove('hidden');
+
+  const id = btn.dataset.id as string;
+  interface Response {
+    message: string;
+  }
+
+  const res = await fetch(`/api/likes/${id}.json`, {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+  });
+
+  const { message }: Response = await res.json();
+  console.log(message);
+  location.reload();
+}
+
+const likeButtons = document.querySelectorAll("#likeButton");
+
+likeButtons.forEach(button => {
+  button.addEventListener("click", handleLike);
+});
+
+async function handleLike(e: any) {
+    const button = e.currentTarget;
+
+    const url = button.dataset.photoUrl;
+    const id = button.dataset.photoId;
+
+    const loader = button.querySelector("#likeLoader");
+    loader.classList.remove("hidden");
+
+    const response = await fetch(`/api/likes/like.json`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            url,
+            id 
+        })
+    });
+
+    const {  message } = await response.json();
+    if(!response.ok) throw new Error(message);
     location.reload();
-}))
-
-const likeBtns = document.querySelectorAll("#like") as NodeListOf<HTMLButtonElement>;
-
-likeBtns.forEach(btn => btn.addEventListener("click", () => {
-    document.getElementById('likeLoader')?.classList?.remove('hidden')
-}))
-
-// function downloadImage(event: any) {
-//     event.preventDefault(); // Prevent the default behavior of the anchor tag
-    
-//     const imageUrl = event.target.getAttribute('href'); // Get the image URL from the href attribute
-    
-//     fetch(imageUrl)
-//         .then(response => response.blob())
-//         .then(blob => {
-//             const url = window.URL.createObjectURL(blob);
-//             const a = document.createElement('a');
-//             a.style.display = 'none';
-//             a.href = url;
-//             a.download = 'image.jpg'; // Set the filename for the downloaded image
-//             document.body.appendChild(a);
-//             a.click();
-//             window.URL.revokeObjectURL(url);
-//         });
-// }
+}
 </script>

@@ -25,7 +25,7 @@ const profileLetter = $user?.value![0]?.name!.charAt(0);
           <Link to={`profile/${$user?.value![0]?._id!}`} className="hidden md:block" >
             <Avatar avatar={profileLetter} />
           </Link>
-          <Link to={`saved/${$user?.value![0]?._id!}`} className="bg-black text-white rounded-md w-8 h-9  md:w-10 md:h-9 flex justify-center items-center" >  
+          <Link to={`saves/${$user?.value![0]?._id!}`} className="bg-black text-white rounded-md w-8 h-9  md:w-10 md:h-9 flex justify-center items-center" >  
             <i class="bi bi-download"></i>
           </Link>
         )
