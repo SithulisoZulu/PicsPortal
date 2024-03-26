@@ -1,6 +1,6 @@
 ---
 import { Link } from './UI'
-import Image from 'astro/components/Image.astro'
+// import Image from 'astro/components/Image.astro'
 import type { IPin } from '../interfaces/IPin'
 import type { ILike } from '../interfaces/ILike'
 
@@ -17,7 +17,7 @@ const saved = likes?.some((like: ILike) => {
 ---
 <div class="m-2">
     <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo" id="Photo">
-        <Image width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="lazy" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
+        <img width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="lazy" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
         />
         <div class="hidden absolute top-0 w-[385px] md:w-full h-full flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu animate-slide-fwd rounded-lg transition-all duration-500 ease-in-out" id="menu">
             <div class="flex items-center justify-between">
