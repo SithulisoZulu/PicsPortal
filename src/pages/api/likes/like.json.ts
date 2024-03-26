@@ -11,10 +11,12 @@ import { likeImage } from "../../../controllers/likeController.js";
  */
 export const POST: APIRoute = async ({ request, redirect }) => {
 
-  if(!$user?.value || $user.value.length === 0)
+  if(!$user?.value || $user.value.length === 0 || $user.value![0]._id === "" )
   {
     return redirect("/auth");
   }
+
+  console.log($user)
 
   const connection = await connectDB();
 

@@ -21,7 +21,6 @@ else{
     pins = await client.photos.curated({ per_page: PHOTOS_PER_PAGE });
 }
 
-let sibeBarToggle: boolean = false;
 ---
 <MainLayout SITE_PAGE={slug?.toString()}>
 	<div class="flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out">
@@ -51,7 +50,7 @@ let sibeBarToggle: boolean = false;
             {
                 slug === "photos" ? (
 					pins ? (
-						<Pins pins={pins && pins.photos} loadingText={slug} show={true} target="_blank"/>
+						<Pins pins={pins && pins?.photos} loadingText={slug} show={true} target="_blank"/>
 					)
 					:
 					(
