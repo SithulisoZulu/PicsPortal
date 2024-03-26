@@ -1,5 +1,4 @@
 ---
-import { API_BASE_URL } from '../constants'
 import { Link } from './UI'
 import Image from 'astro/components/Image.astro'
 import type { IPin } from '../interfaces/IPin'
@@ -94,10 +93,6 @@ document.querySelectorAll('.Photo').forEach(photo => {
     });
 
 });
-
-interface Like {
-  id: string;
-}
 
 const deleteBtns = document.querySelectorAll<HTMLButtonElement>('[data-id]');
 

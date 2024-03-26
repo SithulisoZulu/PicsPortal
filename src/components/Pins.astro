@@ -36,8 +36,7 @@ const likes = await getLikes()
     </div>
 </div>
 <script>
-	const loaderId = "loader"
-	function hideLoader(loaderId: string) {
+	function hideLoader() {
 		setTimeout(function() {
             document.addEventListener("DOMContentLoaded", function() {
             // Code to update and hide the element goes here
@@ -47,5 +46,5 @@ const likes = await getLikes()
 		}, 5000)
 	};
 	
-	hideLoader(loaderId);
+	hideLoader();
 </script>

@@ -96,7 +96,7 @@ export const register = async (cookies: AstroCookies, request: Request) => {
   }
 }
 
-export const logout = async(cookies: AstroCookies, request: Request) => {
+export const logout = async(cookies: AstroCookies) => {
   cookies.delete('jwToken');
   const token = cookies.get('jwToken');
   return token;

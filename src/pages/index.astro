@@ -5,7 +5,7 @@ import { $user } from '../store/userStore';
 import { getPins } from '../utils/Pins'
 import type {IPins} from '../interfaces/IPins'
 
-const pins: IPins = await getPins()
+const pins: any = await getPins()
 ---
 <MainLayout SITE_PAGE="Home">
 	

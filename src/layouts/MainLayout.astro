@@ -41,15 +41,15 @@ const assets = '../../src/assets/';
 </html>
 <script>
 	const menu = document.getElementById("Menu") as HTMLElement;
-	menu?.addEventListener('click', (e) => {
+	menu?.addEventListener('click', () => {
 		document.getElementById("mobileMenu")?.classList.remove("hidden")
 	})
 	const closeMobileMenu = document.getElementById("closeMobileMenu") as HTMLElement;
-	closeMobileMenu?.addEventListener('click', (e) => {
+	closeMobileMenu?.addEventListener('click', () => {
 		document.getElementById("mobileMenu")?.classList.add("hidden")
 	})
 	const main = document.getElementById("main") as HTMLElement;
-	main?.addEventListener('click', (e) => {
+	main?.addEventListener('click', () => {
 		document.getElementById("mobileMenu")?.classList.add("hidden")
 	})
 </script>

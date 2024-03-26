@@ -20,7 +20,7 @@ const { pins, loadingText } = Astro.props
 
     <div class="w-[350px] max-sm:flex max-sm:flex-col justify-center columns-1 md:columns-3 lg:columns-4 xl:columns-4 gap-3 md:w-[600px] lg:w-[1100px] xl:w-[1300px] space-y-3 pb-28 p-3 lg:px-8 lg:py-16 mx-auto mt-15 animate-slide-fwd">
         {
-            pins?.videos?.map(pin => <VideoPin pin={pin} />)
+            pins?.videos?.map((pin: {}) => <VideoPin pin={pin} />)
         }
     </div>
 

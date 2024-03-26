@@ -3,7 +3,7 @@ import { logout } from "../../../controllers/userController.js";
 import { addUser } from "../../../store/userStore.js";
 
 export const GET: APIRoute = async ({ cookies,  request, redirect }) => {
-    const jwToken = await logout(cookies, request);
+    const jwToken = await logout(cookies);
     if(jwToken)
     {
         return new Response("token found", {status: 400});

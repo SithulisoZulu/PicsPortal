@@ -7,25 +7,6 @@ interface Props {
     like: ILike;
 }
 
-const downloadImage = (e: any) => {
-  e.preventDefault(); // Prevent the default behavior of the anchor tag
-    
-    const imageUrl = e.target.getAttribute('href'); // Get the image URL from the href attribute
-    
-    fetch(imageUrl)
-        .then(response => response.blob())
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'image.jpg'; // Set the filename for the downloaded image
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        });
-}
-
 const { like } = Astro.props
 ---
 
@@ -74,7 +55,7 @@ const { like } = Astro.props
  <script>
     const deleteBts = document.querySelectorAll('[data-id') as NodeListOf<HTMLButtonElement>;
 
-    deleteBts.forEach(btn => btn.addEventListener('click', async (e)=> {
+    deleteBts.forEach(btn => btn.addEventListener('click', async ()=> {
         document.getElementById('dealeteLoader')?.classList?.remove('hidden')
         const id = btn.dataset.id
         const res = await fetch(`/api/likes/${id}.json`, {

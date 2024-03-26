@@ -4,14 +4,14 @@ import { Link } from '../components/UI'
 import { Logosm, FeatureComingSoon } from '../components';
 import { client } from '../pexels/client';
 import { PHOTOS_PER_PAGE, VIDEOS_PER_PAGE } from '../constants';
-import { NoPinsFound, Pins, SideBar, VideoPins } from '../components';
+import { NoPinsFound, Pins, SideBar } from '../components';
 import { $user } from '../store/userStore';
 import Avatar from '../components/Avatar.astro';
 
 const query: string  = Astro?.url?.searchParams.get('query')!;
 const type: string | null = Astro.url.searchParams.get('type');
 
-let results = null 
+let results: any = null 
 if(type === "video"){
     results = await client.videos.search({ query, per_page: VIDEOS_PER_PAGE });
 }

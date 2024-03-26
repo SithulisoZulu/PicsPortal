@@ -9,10 +9,10 @@ import { Pins } from "../../components";
 import { randomize } from '../../utils/randomizer';
 
 const  photoId  = Astro.params.id
-const image =  await client.photos.show({ id: photoId! });
-const pins = await getPins();
+const image: any =  await client.photos.show({ id: photoId! });
+const pins: any = await getPins();
 
-const rand = randomize(pins?.photos)
+const rand: any = randomize(pins?.photos)
 ---
 <ProfileLayout SITE_PAGE={image?.alt}>
     <div class="m-2">
