@@ -1,4 +1,4 @@
-// import cloudinary from 'cloudinary'
+import cloudinary from 'cloudinary'
 // import { $image } from '../store/imageBlobStore';
 
 // export const imageBlob = async (image: File) => {
@@ -26,3 +26,12 @@
 //         }
 //     });
 // };
+
+
+
+export const fileUpload =  async (image: any) =>  {
+    cloudinary.v2.uploader.upload(image, {upload_preset: import.meta.env.CLOUD_NAME}, (error, result)=>{
+        console.log(result, error);
+        return result
+  });
+}

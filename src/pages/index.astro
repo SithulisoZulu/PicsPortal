@@ -3,9 +3,9 @@ import MainLayout from  '../layouts/MainLayout.astro'
 import {SideBar, Pins, NoPinsFound, Logosm, Avatar, Link } from '../components'
 import { $user } from '../store/userStore';
 import { getPins } from '../utils/Pins'
+import type {IPins} from '../interfaces/IPins'
 
-const pins = await getPins()
-let sibeBarToggle: boolean = false;
+const pins: IPins = await getPins()
 ---
 <MainLayout SITE_PAGE="Home">
 	
@@ -13,33 +13,35 @@ let sibeBarToggle: boolean = false;
 		<div class="hidden md:flex h-screen flex-initial">
 			<SideBar user={$user?.value && $user?.value} />
 		</div>
-		<div class="flex md:hidden flex-row">
+		<div class="flex md:hidden flex-row" >
 			<div class="p-2 w-full flex flex-row justify-between items-center shadow-md">
-				<i class="fa fa-bars icon cursor-pointer" aria-hidden="true" id="Menu" ></i>
+				<i class="bi bi-grid-fill icon cursor-pointer hover:animate-pulse transaction-all duration-500 ease-out" aria-hidden="true" id="Menu" ></i>
 				<Link to="/">
 					<Logosm />
 				</Link>
-				<Link to={`profile/${$user?.value![0]?._id}`}>
-					<Avatar avatar={$user?.value![0]?.name.charAt(0)} />
-				</Link>
+				{
+					$user?.value?.length! > 0 && (
+
+						<Link to={`profile/${$user?.value![0]?._id}`}>
+							<Avatar avatar={$user?.value![0]?.name.charAt(0)} />
+						</Link>
+					)
+				}
 			</div>
-		{
-			sibeBarToggle && (
-				<div class="fixed w-4/3 bg-white h-screen overflow-y-auto shadow-md z-10 animate-slide-in">
-					<div class="absolute w-full flex justify-end items-center p-2">
-						<i class="fa fa-times-circle cursor-pointer" aria-hidden="true"></i>
-					</div>
-					<SideBar user={$user?.value && $user?.value} />
+	
+			<div class="fixed w-4/3 bg-white h-screen overflow-y-auto shadow-md z-10 animate-slide-in hidden" id="mobileMenu">
+				<div class="absolute w-full flex justify-end items-center p-2" id="closeMobileMenu">
+					<i class="fa fa-times-circle cursor-pointer hover:animate-spin transaction-all duration-500 ease-out" aria-hidden="true"></i>
 				</div>
-			)
-		}
+				<SideBar user={$user?.value && $user?.value} />
+			</div>
 		</div>
 		<div class="pb-2 flex-1 h-screen overflow-y-scroll">
 			<Link to=`profile/${$user?.value![0]?._id}`></Link>
 
 			{
 				pins ? (
-					<Pins pins={pins && pins.photos} loadingText="content" show={true} target="_blank" />
+					<Pins pins={pins && pins?.photos} loadingText="content" show={true} target="_blank" />
 				)
 				:
 				(

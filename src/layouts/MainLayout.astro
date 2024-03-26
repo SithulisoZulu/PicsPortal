@@ -1,10 +1,6 @@
 ---
+// import { ViewTransitions } from "astro:transitions";
 import { SITE_NAME } from  '../constants';
-import { $user } from '../store/userStore';
-
-if(!$user.value){
-	Astro.redirect("/login")
-};
 
 interface Props {
 	SITE_PAGE: any;
@@ -27,13 +23,33 @@ const assets = '../../src/assets/';
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.0.1/remixicon.css">
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<link href="https://css.gg/css" rel="stylesheet" />
+
+		
+		<!-- <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>   -->
+ 		<!-- <ViewTransitions /> -->
+
 	</head>
 	<body>
 		<main>
 			<slot />
 		</main>
 
-        <script src="../../node_modules/preline/dist/preline.js"></script>
-		<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>  
+        <script src="../../node_modules/preline/dist/preline.js"></script>  
 	</body>
 </html>
+<script>
+	const menu = document.getElementById("Menu") as HTMLElement;
+	menu?.addEventListener('click', (e) => {
+		document.getElementById("mobileMenu")?.classList.remove("hidden")
+	})
+	const closeMobileMenu = document.getElementById("closeMobileMenu") as HTMLElement;
+	closeMobileMenu?.addEventListener('click', (e) => {
+		document.getElementById("mobileMenu")?.classList.add("hidden")
+	})
+	const main = document.getElementById("main") as HTMLElement;
+	main?.addEventListener('click', (e) => {
+		document.getElementById("mobileMenu")?.classList.add("hidden")
+	})
+</script>

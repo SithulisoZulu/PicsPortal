@@ -10,5 +10,8 @@ export const POST: APIRoute = async ({ cookies,  request, redirect }) => {
   .then((data) => data)
   .catch(() => null);
 
+  if(user?.status === 401){
+    return redirect(`/error/${"login"}`)
+  }
   return redirect("/")
 };

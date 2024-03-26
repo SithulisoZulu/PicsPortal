@@ -39,6 +39,7 @@ export const login = async (cookies: AstroCookies , request: Request) => {
     return new Response(
       JSON.stringify({
         message: "Invalid email or password",
+        user: user
       }),
       { status: 401 }
     );
@@ -73,7 +74,7 @@ export const register = async (cookies: AstroCookies, request: Request) => {
     throw new Error("User already exists")
   }
 
-  const user = await User.create({ name, email, password});
+  const user = await User.create({ name, email, password });
 
   if(user){
     addUser(user);
@@ -88,6 +89,7 @@ export const register = async (cookies: AstroCookies, request: Request) => {
     return new Response(
       JSON.stringify({
         message: "Something went wrong ",
+        user: user
       }),
       { status: 500 }
     );

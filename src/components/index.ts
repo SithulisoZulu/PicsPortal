@@ -12,3 +12,5 @@ export {default as FeatureComingSoonDetails } from './FeatureComingSoonDetails.a
 export {default as NoLikedFound } from './NoLikedFound.astro'
 export {default as SavedImages } from './SavedImages.astro'
 export {default as DeleteAccountConfirmation} from './DeleteAccountConfirmation.astro'
+export {default as About } from './About.astro'
+export {default as Pagination} from './Pagination.astro'

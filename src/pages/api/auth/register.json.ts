@@ -8,10 +8,10 @@ export const POST: APIRoute = async ({ cookies,  request, redirect }) => {
   const user = await register(cookies, request)
   .then((data) => data)
   .catch(() => null);
-  
-  if (!user)
+
+  if (user?.status === 500 || user === null)
   {
-    console.log("User not found");
+    return redirect(`/error/${"register"}`)
   }
 
   return redirect("/welcome")

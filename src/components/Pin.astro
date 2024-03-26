@@ -20,12 +20,12 @@ const saved = likes?.some((like: ILike) => {
     <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo" id="Photo">
         <Image width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="lazy" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
         />
-        <div class="hidden absolute top-0 w-full h-full flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu transition-all duration-500 ease-in-out" id="menu">
+        <div class="hidden absolute top-0 w-[385px] md:w-full h-full flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu animate-slide-fwd rounded-lg transition-all duration-500 ease-in-out" id="menu">
             <div class="flex items-center justify-between">
                 <div class="flex gap-2">
-                    <a id="download" href={pin.src.original ? pin.src.original : pin.src.medium}
+                    <a id="download" download href={pin.src.original ? pin.src.original : pin.src.medium}
                     class="bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none"
-                    onclick="downloadImage(event)"
+                    onclick="downloadImage(pin.src.original ? pin.src.original : pin.src.medium)"
                     >
                     <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
                     </a>
@@ -48,7 +48,7 @@ const saved = likes?.some((like: ILike) => {
                 }
             </div>
             <div class="flex justify-between items-start gap-2 w-full">
-                <a href={`/details/${pin?.id}`} target="_blank" class="bg-white flex items-center gap-2 text-black font-bold p-1 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md mb-2">
+                <a href={`/details/${pin?.id}`} target={target} class="bg-white flex items-center gap-2 text-black font-bold p-1 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md mb-2">
                     <i class="bi bi-arrow-up-right-circle-fill"></i>
                     {`view details...`}
                 </a>
@@ -69,7 +69,7 @@ const saved = likes?.some((like: ILike) => {
           </div>
     </div>
 </div>
-    <Link to={pin?.photographer_url} className="flex gap-2 mb-2 items-center" target={target}>
+    <Link to={pin?.photographer_url} className="flex gap-2 mb-2 items-center ml-3" target={target}>
         <i class="bi bi-person-circle icon"></i> 
         <p class="font-bold capitalize mb-1">
             {pin?.photographer}
@@ -159,4 +159,78 @@ async function handleLike(e: any) {
     if(!response.ok) throw new Error(message);
     location.reload();
 }
+
+async function downloadImage(url: string) {
+
+
+
+  const response = await fetch(url);
+
+  if(!response.ok) {
+    throw new Error('Image failed to load');
+  }
+
+  const blob = await response.blob();
+
+  // Hide loading indicator
+
+  // Create URL from blob
+  const imageUrl = URL.createObjectURL(blob);
+
+  // Create anchor tag to download
+  const link = document.createElement('a');
+  link.href = imageUrl;
+  link.download = 'image.png';
+
+  // Simulate click to download
+  link.click();
+
+  // Clean up
+  URL.revokeObjectURL(imageUrl);
+
+}
+
+
+const links = document.querySelectorAll('a[download]') as NodeListOf<HTMLAnchorElement>;
+links.forEach(link =>  {
+    link.addEventListener("click", (e) => {
+        console.log(e)
+        const url = new URL(link.href);
+        url.protocol = 'https';
+        url.host = 'images.pexels.com';
+        downloadImage(url.href);
+    })
+});
+
+// async function downloadImage(url: string) {
+
+//   // Show loading indicator
+
+//   const response = await fetch(url);
+
+//   if(!response.ok) {
+//     throw new Error('Image failed to load');
+//   }
+
+//   const blob = await response.blob();
+
+//   // Hide loading indicator
+
+//   // Create URL from blob
+//   const imageUrl = URL.createObjectURL(blob);
+
+//   // Create anchor tag to download
+//   const link = document.createElement('a');
+//   link.href = imageUrl;
+//   link.download = 'image.png';
+
+//   // Simulate click to download
+//   link.click();
+
+//   // Clean up
+//   URL.revokeObjectURL(imageUrl);
+
+// }
+
+
 </script>

@@ -13,8 +13,6 @@ const profileLetter = user[0]?.name.charAt(0);
 
 const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize'
 const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize'
-
-
 ---
 <nav>
     <div class="flex flex-col justify-between bg-white h-full min-w-210 hide-Scrollbar">
@@ -29,13 +27,13 @@ const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 bo
                 </Link> 
                 <h3 class="mt-2 px-5 text-base 2xl:text-xl">Discover more</h3>
                 {
-                    links.slice(0, links.length - 2).map((link: any)  => (
+                    links.slice(0, links.length - 3).map((link: any)  => (
                         <Link to={`${link.name.toLowerCase()}`}  className={activeLink?.toLowerCase() === link.name?.toLowerCase() ? isActiveStyle : isNotActiveStyle}><i class={`${link?.icon}`} aria-hidden="true"></i>
                         {link.name}</Link>
                     ))
                 }
                 { activeLink === 'search' &&
-                    links.slice(2, links.length - 1).map((link: any)  => (
+                    links.slice(2, links.length - 2).map((link: any)  => (
                         <div class={isActiveStyle}><i class={`${link?.icon}`} aria-hidden="true"></i>
                         {link.name}</div>
                     ))
@@ -59,6 +57,13 @@ const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 bo
                     (
                         <a href="auth" class={isNotActiveStyle}><i class="fa fa-sign-out mr-0" aria-hidden="true"></i>Signin</a>
                     )
+                }
+
+                {
+                    links.slice(3, links.length - 1).map((link: any)  => (
+                        <Link to={`${link.name.toLowerCase()}`}  className={activeLink?.toLowerCase() === link.name?.toLowerCase() ? isActiveStyle : isNotActiveStyle}><i class={`${link?.icon}`} aria-hidden="true"></i>
+                        {link.name}</Link>
+                    ))
                 }
             </div>
        </div>

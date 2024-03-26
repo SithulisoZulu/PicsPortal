@@ -24,21 +24,21 @@ const rand = randomize(pins?.photos)
                 </div>
                 <Image width={300} height={300} src={image?.src?.original} alt={image?.alt!}/>
                 <div class="flex justify-between items-center">
-                    <Link to={"/"} className="flex gap-2 mb-2 mt-2 bg-white items-center text-black font-bold p-1  pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md " target="_blank">
+                    <Link to={image.photographer_url} className="flex gap-2 mb-2 mt-2 bg-white items-center text-black font-bold p-1  pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md " target="_blank">
                         <i class="bi bi-person-circle icon"></i> 
                         <p class="font-bold capitalize mb-1">
                             {image?.photographer}
                         </p>
                     </Link>
-                    <a href="/" class=""><i class="bi bi-download text-lg font-bold hover:shadow-md outline-none rounded-full p-2 animate-bounce" aria-hidden="true"></i></a>
+                    <a href={image?.src?.original} download class=""><i class="bi bi-download text-lg font-bold hover:shadow-md outline-none rounded-full p-2 animate-bounce" aria-hidden="true"></i></a>
                 </div>    
             </div>
         </div>
         <div class="w-full flext justify-center items-center text-center mt-10 border-t py-5 md:px-32">
             <h1 class="text-2xl md:text-3xl font-bold">Explore more related pictures</h1>
         </div>
-        <div class="flex justify-start md:px-40 md:mx-20 items-center gap-1">
-            <Pins pins={rand && rand} loadingText="Related Pictures" show={false} target="_self" />
+        <div class="lg:px-40 md:mx-20">
+            <Pins pins={rand && rand} loadingText="Related Pictures" show={false} target="" />
         </div>
     </div>
     

@@ -9,7 +9,7 @@ export const GET: APIRoute = async ({ cookies,  request, redirect }) => {
         return new Response("token found", {status: 400});
     }
     const User = {
-        _id         : '',
+        _id          : '',
         name         : '',
         email        : '',
         password     : '',

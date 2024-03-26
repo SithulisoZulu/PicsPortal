@@ -1,0 +1,55 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro'
+import { SITE_NAME } from '../../constants'
+
+const { action } = Astro.params;
+---
+
+<MainLayout SITE_PAGE={`Welcome to ${SITE_NAME}`}>
+
+    {
+        action === 'register' ? (
+            <div class="flex flex-col items-center mt-32 top-0 left-0 right-0 w-full ">
+                <div class="flex flex-col items-center justify-center bg-white rounded-md p-2 text-center md:w-[580px]"
+                >
+                    <div class="p-3 text-red-600 px-4 border-2 border-red-600 rounded-full font-bold w-50 h-50"
+                    >
+                        <i class="fa fa-warning icon animate-pulse" aria-hidden="true"></i>
+                    </div>
+                    <h1 class="text-3xl font-extrabold mt-5">
+                        Hello, We could not create your {SITE_NAME}
+                    </h1>
+                    <p class="mb-10 mt-5 text-base w-[420px]">
+                        User Already exists or something went wrong on our end. You can try a different email!
+                    </p>
+                    <a href="/auth" class="flex items-center justify-center p-3 px-4 hover:shadow-md font-semibold rounded-full bg-black text-white"
+                    >
+                        Try again <i class="ml-2 fa fa-refresh"></i>
+                    </a>
+                </div>
+            </div>
+        )
+        :
+        (
+            <div class="flex flex-col items-center mt-32 top-0 left-0 right-0 w-full ">
+                <div class="flex flex-col items-center justify-center bg-white rounded-md p-2 text-center md:w-[580px]"
+                >
+                    <div class="p-3 text-red-600 px-4 border-2 border-red-600 rounded-full font-bold w-50 h-50"
+                    >
+                        <i class="fa fa-warning icon animate-pulse" aria-hidden="true"></i>
+                    </div>
+                    <h1 class="text-3xl font-extrabold mt-5">
+                        Hello, We could not login you in to {SITE_NAME}
+                    </h1>
+                    <p class="mb-10 mt-5 text-base w-[420px]">
+                        Please double check your email and password and try again.
+                    </p>
+                    <a href="/auth" class="flex items-center justify-center p-3 px-4 hover:shadow-md font-semibold rounded-full bg-black text-white"
+                    >
+                        Try again <i class="ml-2 fa fa-refresh"></i>
+                    </a>
+                </div>
+            </div>
+        )
+    } 
+</MainLayout>

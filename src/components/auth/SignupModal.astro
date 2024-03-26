@@ -6,7 +6,7 @@ import Input from '../UI/Input.astro'
 import Button from '../UI/Button.astro'
 
 ---
-<div id="signinModal" class="fixed mt-24 hs-overlay hidden w-full h-full  top-0 bottom-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+<div id="signinModal" class="fixed xl:mt-24 hs-overlay hidden w-full h-full  top-0 bottom-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
   <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
     <ModalCloser modal="#signinModal" />
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm">
@@ -75,11 +75,31 @@ import Button from '../UI/Button.astro'
           <p class="mt-5 text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?
             <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 cursor-pointer" data-hs-overlay="#loginModal">
-              Sign up here
+              Sign in here
             </a>
           </p>
         </div>
+        <!-- <button id="upload_widget" class="cloudinary-button">Upload files</button> -->
       </div>
     </div>
   </div>
 </div>
+<!-- <script type="text/javascript">  
+  var myWidget = cloudinary.createUploadWidget({
+    cloudName: 'dpnz1b1ud', 
+    uploadPreset: 'picsPortal'}, (error, result) => { 
+      if (!error && result && result.event === "success") {
+        const photoUrl = result.info.url;
+        localStorage.setItem("url", photoUrl)
+      }
+      if(error)
+      {
+        throw new Error('Failed to upload image')
+      }
+    }
+  )
+  
+  document.getElementById("upload_widget").addEventListener("click", function(){
+      myWidget.open();
+    }, false);
+</script> -->
