@@ -14,6 +14,8 @@ const { slug } = Astro.params;
 let pins: any = null
 let videoPins: any
 
+const user = $user.value ?? [];
+
 if(slug === "videos")
 {
     videoPins = await client.videos.popular({ per_page: VIDEOS_PER_PAGE });
@@ -26,7 +28,7 @@ else{
 <MainLayout SITE_PAGE={slug?.toString()!}>
 	<div class="flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out">
 		<div class="hidden md:flex h-screen flex-initial">
-			<SideBar user={$user.value && $user.value!} activeLink={slug} />
+			<SideBar user={user && user} activeLink={slug} />
 		</div>
 		<div class="flex md:hidden flex-row" >
 			<div class="p-2 w-full flex flex-row justify-between items-center shadow-md">
@@ -43,7 +45,7 @@ else{
 				<div class="absolute w-full flex justify-end items-center p-2" id="closeMobileMenu">
 					<i class="fa fa-times-circle cursor-pointer hover:animate-spin transaction-all duration-500 ease-out" aria-hidden="true"></i>
 				</div>
-				<SideBar user={$user?.value && $user?.value} activeLink={slug}/>
+				<SideBar user={user && user} activeLink={slug}/>
 			</div>
 		</div>
 		<div class="pb-2 flex-1 h-screen overflow-y-scroll">

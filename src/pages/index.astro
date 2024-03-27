@@ -3,16 +3,17 @@
 import MainLayout from  '@layouts/MainLayout.astro'
 import { $user } from '@store/userStore';
 import { getPins } from '@utils/Pins'
-import {SideBar, Pins, NoPinsFound, Logosm, Avatar, Link } from '../components'
+import { SideBar, Pins, NoPinsFound, Logosm, Avatar, Link } from '../components'
 //#endregion
 
+const user = $user.value ?? [];
 const pins: any = await getPins()
 ---
 <MainLayout SITE_PAGE="Home">
 	
 	<div class="flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out">
 		<div class="hidden md:flex h-screen flex-initial">
-			<SideBar user={$user?.value && $user?.value} />
+			<SideBar user={user && user} />
 		</div>
 		<div class="flex md:hidden flex-row" >
 			<div class="p-2 w-full flex flex-row justify-between items-center shadow-md">
@@ -34,7 +35,7 @@ const pins: any = await getPins()
 				<div class="absolute w-full flex justify-end items-center p-2" id="closeMobileMenu">
 					<i class="fa fa-times-circle cursor-pointer hover:animate-spin transaction-all duration-500 ease-out" aria-hidden="true"></i>
 				</div>
-				<SideBar user={$user?.value && $user?.value} />
+				<SideBar user={user && user} />
 			</div>
 		</div>
 		<div class="pb-2 flex-1 h-screen overflow-y-scroll">

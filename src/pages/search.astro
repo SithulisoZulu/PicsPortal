@@ -11,6 +11,7 @@ import Avatar from '@components/Avatar.astro';
 
 const query: string  = Astro?.url?.searchParams.get('query')!;
 const type: string | null = Astro.url.searchParams.get('type');
+const user = $user.value ?? [];
 
 let results: any = null 
 if(type === "video"){
@@ -23,7 +24,7 @@ else {
 <MainLayout SITE_PAGE="Search">
 	<div class="flex bg-gray-50 md:flex-row flex-col h-screen transaction-all duration-75 ease-in-out">
 		<div class="hidden md:flex h-screen flex-initial">
-			<SideBar user={$user?.value && $user?.value} activeLink={'search'} />
+			<SideBar user={user && user} activeLink={'search'} />
 		</div>
 		<div class="flex md:hidden flex-row" >
 			<div class="p-2 w-full flex flex-row justify-between items-center shadow-md">
@@ -40,7 +41,7 @@ else {
 				<div class="absolute w-full flex justify-end items-center p-2" id="closeMobileMenu">
 					<i class="fa fa-times-circle cursor-pointer hover:animate-spin transaction-all duration-500 ease-out" aria-hidden="true"></i>
 				</div>
-				<SideBar user={$user?.value && $user?.value} activeLink={'search'} />
+				<SideBar user={user && user} activeLink={'search'} />
 			</div>
 		</div>
 		<div class="pb-2 flex-1 h-screen overflow-y-scroll">
