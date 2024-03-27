@@ -1,18 +1,22 @@
 ---
-import Logosm from '../components/Logosm.astro'
+//#region imports 
+import type { IUser } from '../interfaces/Iuser';
+import Logosm from '../components/Logosm.astro';
 import Avatar from '../components/Avatar.astro';
-import { Link } from '../components/UI'
-import { API_BASE_URL, links } from '../constants'
+import { Link } from '../components/UI';
+import { API_BASE_URL, links } from '../constants';
+//#endregion
 
 interface Props {
-    user: any,
+    user: IUser[],
     activeLink?: any
-}
-const { user, activeLink } = Astro.props
+};
+
+const { user, activeLink } = Astro.props;
 const profileLetter = user[0]?.name.charAt(0);
 
-const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize'
-const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize'
+const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize';
+const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize';
 ---
 <nav>
     <div class="flex flex-col justify-between bg-white h-full min-w-210 hide-Scrollbar">
@@ -27,13 +31,13 @@ const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 bo
                 </Link> 
                 <h3 class="mt-2 px-5 text-base 2xl:text-xl">Discover more</h3>
                 {
-                    links.slice(0, links.length - 3).map((link: any)  => (
+                    links?.slice(0, links?.length - 3).map((link: any)  => (
                         <Link to={`${link.name.toLowerCase()}`}  className={activeLink?.toLowerCase() === link.name?.toLowerCase() ? isActiveStyle : isNotActiveStyle}><i class={`${link?.icon}`} aria-hidden="true"></i>
                         {link.name}</Link>
                     ))
                 }
                 { activeLink === 'search' &&
-                    links.slice(2, links.length - 2).map((link: any)  => (
+                    links?.slice(2, links?.length - 2).map((link: any)  => (
                         <div class={isActiveStyle}><i class={`${link?.icon}`} aria-hidden="true"></i>
                         {link.name}</div>
                     ))
@@ -80,7 +84,7 @@ const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 bo
 <script>
     const btn = document.getElementById("logout") as HTMLElement;
 
-    btn.addEventListener("click", () => {
+    btn?.addEventListener("click", () => {
         var element = document.getElementById("logoutLoader");
         if(element) element.style.display = "inline-block";
     })

@@ -2,10 +2,11 @@
 import TopBar from './TopBar.astro'
 import VideoPin from '../components/VideoPin.astro'
 import Loader from '../components/Loader.astro'
+import type { IVideoPin } from '../interfaces/IVideoPin'
 
 let loading: boolean = true
 interface Props {
-    pins        : any,
+    pins        : IVideoPin[],
     loadingText?: string
 }
 const { pins, loadingText } = Astro.props
@@ -20,7 +21,8 @@ const { pins, loadingText } = Astro.props
 
     <div class="w-[350px] max-sm:flex max-sm:flex-col justify-center columns-1 md:columns-3 lg:columns-4 xl:columns-4 gap-3 md:w-[600px] lg:w-[1100px] xl:w-[1300px] space-y-3 pb-28 p-3 lg:px-8 lg:py-16 mx-auto mt-15 animate-slide-fwd">
         {
-            pins?.videos?.map((pin: {}) => <VideoPin pin={pin} />)
+            // pins?.video_files?.map((pin: IVideoPin) => <VideoPin pin={pin} />)
+            pins?.map((pin: IVideoPin) => <VideoPin pin={pin} />)
         }
     </div>
 
@@ -37,10 +39,4 @@ const { pins, loadingText } = Astro.props
 	};
 	
 	hideLoader(loaderId);
-
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     // Code to update and hide the element goes here
-    //     var element = document.getElementById("loader");
-    //     if(element) element.style.display = "none"; // Hide the element
-    // });
 </script>

@@ -1,20 +1,23 @@
 ---
-import TopBar from './TopBar.astro'
-import Pin from '../components/Pin.astro'
-import Loader from '../components/Loader.astro'
-import { getLikes } from '../utils/getLikes'
-import type { IPin } from '../interfaces/IPin'
-import BackToTop from './UI/BackToTop.astro'
+//#region  imports
+import type { IPin } from '../interfaces/IPin';
+import type { ILike } from '../interfaces/ILike';
+import { getLikes } from '../utils/getLikes';
+import TopBar from './TopBar.astro';
+import Pin from '../components/Pin.astro';
+import Loader from '../components/Loader.astro';
+import BackToTop from './UI/BackToTop.astro';
+//#endregion
+
 interface Props {
     pins        : IPin[],
     loadingText?: string
     show        : boolean
     target      : string
-}
-const { pins, loadingText, show, target } = Astro.props
+};
 
-const likes = await getLikes()
-
+const { pins, loadingText, show, target } = Astro.props;
+const likes: ILike[] = await getLikes();
 ---
 <div class="px-2 md:px-5 relative" id="main">
     <div class="bg-gray-50">

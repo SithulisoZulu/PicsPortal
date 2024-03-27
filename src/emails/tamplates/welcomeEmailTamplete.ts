@@ -1,4 +1,4 @@
-export const welcomeEmail = async (data: any) => {
+export const welcomeEmail = async (dat: any ) => {
     return {
     subject: 'Welcome to the app',
     html: `<p>Hello ${data.name},</p>

@@ -17,7 +17,7 @@ if(import.meta.env.ENVIRONMENT === "production")
 export { API_BASE_URL } 
 
 export const PHOTOS_PER_PAGE: number = 1000
-export const VIDEOS_PER_PAGE: number = 1000
+export const VIDEOS_PER_PAGE: number = 2
 
 export const links:{}[]= [
      {name: 'Photos', icon: "bi bi-card-image" },

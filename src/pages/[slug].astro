@@ -8,24 +8,28 @@ import { PHOTOS_PER_PAGE, VIDEOS_PER_PAGE } from '../constants';
 import { Avatar, FeatureComingSoon, NoPinsFound, Pins, SideBar, VideoPins } from '../components';
 
 import { $user } from '../store/userStore';
+console.log($user)
+import type { IVideoPin } from '../interfaces/IVideoPin';
+import type { IUser } from '../interfaces/Iuser';
 
 const { slug } = Astro.params;
 
 let pins: any = null
+let videoPins: any
 
 if(slug === "videos")
 {
-    pins = await client.videos.popular({ per_page: VIDEOS_PER_PAGE });
+    videoPins = await client.videos.popular({ per_page: VIDEOS_PER_PAGE });
 }
 else{
     pins = await client.photos.curated({ per_page: PHOTOS_PER_PAGE });
 }
 
 ---
-<MainLayout SITE_PAGE={slug?.toString()}>
+<MainLayout SITE_PAGE={slug?.toString()!}>
 	<div class="flex bg-gray-50 md:flex-row flex-col h-screen transaction-height duration-75 ease-out">
 		<div class="hidden md:flex h-screen flex-initial">
-			<SideBar user={$user.value && $user.value} activeLink={slug} />
+			<SideBar user={$user.value && $user.value!} activeLink={slug} />
 		</div>
 		<div class="flex md:hidden flex-row" >
 			<div class="p-2 w-full flex flex-row justify-between items-center shadow-md">
@@ -62,7 +66,7 @@ else{
 					slug === "videos" ? (
 
 						<FeatureComingSoon />
-						// <VideoPins pins={pins} loadingText={slug} />
+						<VideoPins pins={videoPins} loadingText={slug} />
 					)
 					:
 					(

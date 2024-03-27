@@ -42,5 +42,4 @@ export interface IPin {
     landscape: string;
     tiny     : string;
   }
-}
-  
+} 
