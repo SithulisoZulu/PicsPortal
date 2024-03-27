@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
-import connectDB from "../../../db/db.js";
-import { register } from "../../../controllers/userController.js";
+import connectDB from "@db/db.js";
+import { register } from "@controllers/userController.js";
 
 connectDB();
 

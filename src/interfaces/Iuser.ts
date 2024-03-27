@@ -1,14 +1,20 @@
 /**
- * This code snippet defines an interface called IUser. 
- * The IUser interface has four properties: _id, name, email, and password, all of which are of type string. 
- * This interface can be used to define the structure of objects that represent users in a TypeScript application.
+ * Interface representing a user.
+ * 
+ * @property _id - The unique identifier of the user.
+ * @property name - The name of the user.
+ * @property email - The email address of the user.
+ * @property password - The password of the user.
+ * @property createdAt - The date and time when the user was created.
+ * @property updatedAt - The date and time when the user was last updated.
+ * @property matchPassword - A function to match the user's password.
  */
 export interface IUser {
   _id          : string;
   name         : string;
   email        : string;
   password     : string;
-  createdAt    : Date,
-  updatedAt    : Date
+  createdAt    : any,
+  updatedAt    : any
   matchPassword: Function
 };

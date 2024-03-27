@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
-import connectDB from "../../../db/db.js";
-import { $user } from "../../../store/userStore.js";
-import { getUserLikes } from "../../../controllers/likeController.js";
+import connectDB from "@db/db";
+import { $user } from "@store/userStore";
+import { getUserLikes } from "@controllers/likeController";
 
 
 export const GET: APIRoute = async ({ redirect }) => {

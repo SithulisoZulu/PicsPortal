@@ -1,7 +1,7 @@
 ---
-import ProfileLayout from '../../layouts/Layout.astro'
+import ProfileLayout from '@layouts/Layout.astro'
 import {  SavedImages, NoLikedFound } from '../../components'
-import { getLikes } from "../../utils/getLikes";
+import { getLikes } from "@utils/getLikes";
 
 const liked = await  getLikes()
 ---

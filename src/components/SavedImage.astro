@@ -1,7 +1,7 @@
 ---
-import Image from "astro/components/Image.astro";
-import Link from '../components/UI/Link.astro'
-import type { ILike } from "../interfaces/ILike";
+import { Image } from "astro:assets";
+import Link from '@components/UI/Link.astro'
+import type { ILike } from "@interfaces/ILike";
 
 interface Props {
     like: ILike;
@@ -13,7 +13,7 @@ const { like } = Astro.props
 <div class="m-2">
     <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo hover:shadow-sm" id="Photo"
     >
-        <Image width={'350'} height={'350'} src={like.photoUrl} alt="img" class="rounded-md" /> 
+        <Image width={'350'} height={'350'} src={like.photoUrl} alt="img" class="rounded-md" format="webp" loading="eager"/> 
         
         <div class="hidden absolute top-0 w-[350px] rounded-md  h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu" id="menu">
             <div class="flex items-center justify-between">

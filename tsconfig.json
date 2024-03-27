@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": "C:/Users/Wild_Beast/OneDrive/Documents/Private/Projects/Astro/JobBoard",
+    "baseUrl": ".",
     "paths": {
       "@components/*": [
         "src/components/*"
@@ -10,7 +10,7 @@
         "src/layouts/*"
       ],
       "@utils/*": [
-        "utils/*"
+        "src/utils/*"
       ],
       "@pages/*": [
         "src/pages/*"
@@ -18,8 +18,8 @@
       "@public/*": [
         "public/*"
       ],
-      "@constants": [
-        "constants"
+      "@constants/*": [
+        "src/constants/*"
       ],
       "@firebase": [
         "src/firebase/*"
@@ -32,6 +32,21 @@
       ],
       "@interfaces/*": [
         "src/interfaces/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ],
+      "@pexels/*": [
+        "src/pexels/*"
+      ],
+      "@controllers/*": [
+        "src/controllers/*"
+      ],
+      "@models/*": [
+        "src/models/*"
+      ],
+      "@db/*": [
+        "src/db/*"
       ]
     },
   }

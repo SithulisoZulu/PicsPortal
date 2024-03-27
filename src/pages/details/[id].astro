@@ -1,18 +1,18 @@
 ---
+//#region
 import ProfileLayout from "../../layouts/Layout.astro";
 import Image from "astro/components/Image.astro";
 import { client } from "../../pexels/client"
 import { Link } from "../../components/UI";
 import { getPins } from "../../utils/Pins";
 import { Pins } from "../../components";
-
 import { randomize } from '../../utils/randomizer';
+//#endregion
 
-const  photoId  = Astro.params.id
-const image: any =  await client.photos.show({ id: photoId! });
-const pins: any = await getPins();
-
-const rand: any = randomize(pins?.photos)
+const photoId    = Astro.params.id
+const image: any = await client.photos.show({ id: photoId! });
+const pins: any  = await getPins();
+const rand: any  = randomize(pins?.photos)
 ---
 <ProfileLayout SITE_PAGE={image?.alt}>
     <div class="m-2">

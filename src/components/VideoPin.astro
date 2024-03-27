@@ -1,13 +1,11 @@
 ---
-import type { IPin } from '../interfaces/IPin'
-import type { IVideoPin } from '../interfaces/IVideoPin'
+import type { IVideoPin } from '@interfaces/IVideoPin'
 import { Link } from './UI'
 
 interface Props {
     pin: IVideoPin
 }
 const { pin } = Astro.props
-console.log(pin)
 const postHovered = true
 const saved = false
 ---

@@ -1,5 +1,5 @@
 import { atom } from 'nanostores';
-import type { IUser } from '../interfaces/Iuser';
+import type { IUser } from '@interfaces/Iuser';
 
 export const $user = atom<IUser[]>([])
 /**

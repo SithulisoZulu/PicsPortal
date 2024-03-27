@@ -1,7 +1,9 @@
 ---
-import { Link } from './UI'
-import Avatar from '../components/Avatar.astro';
-import { $user } from '../store/userStore';
+//#region imports
+import { Link } from '@components/UI'
+import Avatar from '@components/Avatar.astro';
+import { $user } from '@store/userStore';
+//#endregion
 
 const profileLetter = $user?.value![0]?.name!.charAt(0);
 ---

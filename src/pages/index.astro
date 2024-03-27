@@ -1,9 +1,10 @@
 ---
-import MainLayout from  '../layouts/MainLayout.astro'
+//#region imports
+import MainLayout from  '@layouts/MainLayout.astro'
+import { $user } from '@store/userStore';
+import { getPins } from '@utils/Pins'
 import {SideBar, Pins, NoPinsFound, Logosm, Avatar, Link } from '../components'
-import { $user } from '../store/userStore';
-import { getPins } from '../utils/Pins'
-import type {IPins} from '../interfaces/IPins'
+//#endregion
 
 const pins: any = await getPins()
 ---

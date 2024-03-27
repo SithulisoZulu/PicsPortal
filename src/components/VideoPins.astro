@@ -1,8 +1,10 @@
 ---
-import TopBar from './TopBar.astro'
-import VideoPin from '../components/VideoPin.astro'
-import Loader from '../components/Loader.astro'
-import type { IVideoPin } from '../interfaces/IVideoPin'
+//#region imports
+import TopBar from '@components/TopBar.astro'
+import VideoPin from '@components/VideoPin.astro'
+import Loader from '@components/Loader.astro'
+import type { IVideoPin } from '@interfaces/IVideoPin'
+//#endregion
 
 let loading: boolean = true
 interface Props {

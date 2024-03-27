@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
-import { $user } from "../../../store/userStore";
-import connectDB from "../../../db/db";
-import { deleteLike } from "../../../controllers/likeController";
+import { $user } from "@store/userStore";
+import connectDB from "@db/db";
+import { deleteLike } from "@controllers/likeController";
 
 /**
  * DELETE function for API route.

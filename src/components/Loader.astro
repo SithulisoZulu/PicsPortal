@@ -1,17 +1,16 @@
 ---
 const { text } = Astro.props
 ---
-
-  <div class="flex felx-col justify-center items-center w-full h-full transition-all duration-500 ease-in-out" id="loader">
-    <div class="flex flex-col">
-        <div class="flex justify-center">
-            <span class='sr-only'>{ text ? text : "Loading..." }</span>
-            <div class="relative w-10 h-10 border-8 border-dotted rounded-full  border-sky-500 animate-spin-slow">
-                <div class="relative w-6 h-6 border-8 border-dashed rounded-full  border-sky-500 animate-reverse-spin shadow-sm">
-                </div>
-            </div>
-        </div>
-        
-        <p class="text-lg font-bold text-center px-2 my-2">{`we are loading ${text || 'content'} to your feed.`}</p>
-    </div>
+<div class="flex felx-col justify-center items-center w-full h-full transition-all duration-500 ease-in-out" id="loader">
+  <div class="flex flex-col">
+      <div class="flex justify-center">
+          <span class='sr-only'>{ text ? text : "Loading..." }</span>
+          <div class="relative w-10 h-10 border-8 border-dotted rounded-full  border-sky-500 animate-spin-slow">
+              <div class="relative w-6 h-6 border-8 border-dashed rounded-full  border-sky-500 animate-reverse-spin shadow-sm">
+              </div>
+          </div>
+      </div>
+      
+      <p class="text-lg font-bold text-center px-2 my-2">{`we are loading ${text || 'content'} to your feed.`}</p>
   </div>
+</div>

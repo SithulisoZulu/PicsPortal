@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
-import connectDB from "../../../db/db.js";
-import { getUser, update } from "../../../controllers/userController.js";
-import { addUser } from "../../../store/userStore.js";
+import connectDB from "@db/db.js";
+import { getUser, update } from "@controllers/userController.js";
+import { addUser } from "@store/userStore.js";
 
 connectDB();
 

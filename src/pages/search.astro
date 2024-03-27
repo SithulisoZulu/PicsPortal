@@ -1,12 +1,13 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro'
-import { Link } from '../components/UI'
-import { Logosm, FeatureComingSoon } from '../components';
+//#region imports
+import MainLayout from '@layouts/MainLayout.astro'
+import { Link } from '@components/UI'
+import { Logosm, FeatureComingSoon, NoPinsFound, Pins, SideBar  } from '../components';
 import { client } from '../pexels/client';
 import { PHOTOS_PER_PAGE, VIDEOS_PER_PAGE } from '../constants';
-import { NoPinsFound, Pins, SideBar } from '../components';
-import { $user } from '../store/userStore';
-import Avatar from '../components/Avatar.astro';
+import { $user } from '@store/userStore';
+import Avatar from '@components/Avatar.astro';
+//#endregion
 
 const query: string  = Astro?.url?.searchParams.get('query')!;
 const type: string | null = Astro.url.searchParams.get('type');
