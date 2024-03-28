@@ -30,7 +30,7 @@ const likes: ILike[] = await getLikes();
 
     <Loader text={loadingText} />
 
-    <div class="w-[470px] max-sm:flex max-sm:flex-col justify-center columns-1 md:columns-3 lg:columns-3 xl:columns-4 md:w-[600px] lg:w-[1000px] xl:w-[1300px] space-y-3 pb-28 p-3 md:px-4 lg:px-8 lg:py-16 mx-auto mt-15 animate-slide-fwd relative pl-8 md:pl-0"
+    <div class="w-[385px] max-sm:flex max-sm:flex-col justify-center columns-1 md:columns-3 lg:columns-3 xl:columns-4 md:w-[550px] lg:w-[1000px] xl:w-[1300px] space-y-3 pb-28 p-3 md:px-4 lg:px-8 lg:py-16 mx-auto mt-15 animate-slide-fwd relative pl-8 md:pl-0"
     >
         {
             pins?.map((pin: IPin) => <Pin pin={pin} likes={likes} target={target} />)

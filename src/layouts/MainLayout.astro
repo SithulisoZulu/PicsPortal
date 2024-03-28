@@ -7,13 +7,13 @@ interface Props {
 };
 
 const { SITE_PAGE } = Astro.props;
-const assets = '../../src/assets/';
+const favicon = '../../src/assets/images/favicon.png';
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href={`${assets}/favicon.png`} />
+		<link rel="icon" type="image/svg+xml" href={favicon} />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{SITE_NAME} - {SITE_PAGE}</title>

@@ -1,10 +1,19 @@
 ---
 import {  Logosm, TopBar, FeatureComingSoonDetails } from '../components'
+
+interface Props {
+    show: boolean
+}
+const { show } = Astro.props
 ---
 <div>
-    <div class="px-2 md:px-5">
-        <TopBar />
-    </div>
+    {
+        show && (
+            <div class="px-2 md:px-5">
+                <TopBar />
+            </div>
+        )
+    }
     <div class="mt-52 flex flex-col justify-center items-center">
         <Logosm />
         <h1 class="text-4xl font-bold mb-4">Coming Soon</h1>
