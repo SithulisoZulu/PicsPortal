@@ -1,25 +1,25 @@
 ---
 //#region imports
-import { Link } from '@components/UI'
-import { Image } from 'astro:assets'
-import type { IPin } from '@interfaces/IPin'
-import type { ILike } from '@interfaces/ILike'
+import { Link } from '@components/UI';
+import { Image } from 'astro:assets';
+import type { IPin } from '@interfaces/IPin';
+import type { ILike } from '@interfaces/ILike';
 //#endregion
 
 interface Props {
     pin   : IPin
     likes : ILike[]
     target: string
-}
-const { pin, likes, target } = Astro.props
+};
 
+const { pin, likes, target } = Astro.props;
 const saved = likes?.some((like: ILike) => {
   return like.photoId.toString() === pin.id.toString();
-})
+});
 ---
 <div class="m-2">
     <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo" id="Photo">
-        <Image width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="lazy" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
+        <Image width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="eager" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
         />
         <div class="hidden absolute top-0 w-[385px] md:w-full h-full flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu animate-slide-fwd rounded-lg transition-all duration-500 ease-in-out" id="menu">
             <div class="flex items-center justify-between">
@@ -32,19 +32,20 @@ const saved = likes?.some((like: ILike) => {
                     </a>
                 </div>
                 {
-                    !saved && (
-                    <div>
-                        <button type="submit" class={`bg-rose-500 opacity-70 hover:opacity-100 text-white  p-2 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`} id="likeButton"
-                        data-photo-url={pin.src.original ? pin.src.original : pin.src.medium}
-                        data-photo-id={pin?.id ? pin?.id : '00000000'} 
-                        >
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                            <div id="likeLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading"
+                    !saved && 
+                    (
+                        <div>
+                            <button type="submit" class={`bg-rose-500 opacity-70 hover:opacity-100 text-white  p-2 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`} id="likeButton"
+                            data-photo-url={pin.src.original ? pin.src.original : pin.src.medium}
+                            data-photo-id={pin?.id ? pin?.id : '00000000'} 
                             >
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </button>
-                    </div>
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                <div id="likeLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading"
+                                >
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </button>
+                        </div>
                     )
                 }
             </div>
@@ -158,8 +159,6 @@ async function handleLike(e: any) {
 
 async function downloadImage(url: string) {
 
-
-
   const response = await fetch(url);
 
   if(!response.ok) {
@@ -167,25 +166,14 @@ async function downloadImage(url: string) {
   }
 
   const blob = await response.blob();
-
-  // Hide loading indicator
-
-  // Create URL from blob
   const imageUrl = URL.createObjectURL(blob);
 
-  // Create anchor tag to download
   const link = document.createElement('a');
   link.href = imageUrl;
   link.download = 'image.png';
-
-  // Simulate click to download
   link.click();
-
-  // Clean up
   URL.revokeObjectURL(imageUrl);
-
 }
-
 
 const links = document.querySelectorAll('a[download]') as NodeListOf<HTMLAnchorElement>;
 links.forEach(link =>  {
@@ -197,36 +185,4 @@ links.forEach(link =>  {
         downloadImage(url.href);
     })
 });
-
-// async function downloadImage(url: string) {
-
-//   // Show loading indicator
-
-//   const response = await fetch(url);
-
-//   if(!response.ok) {
-//     throw new Error('Image failed to load');
-//   }
-
-//   const blob = await response.blob();
-
-//   // Hide loading indicator
-
-//   // Create URL from blob
-//   const imageUrl = URL.createObjectURL(blob);
-
-//   // Create anchor tag to download
-//   const link = document.createElement('a');
-//   link.href = imageUrl;
-//   link.download = 'image.png';
-
-//   // Simulate click to download
-//   link.click();
-
-//   // Clean up
-//   URL.revokeObjectURL(imageUrl);
-
-// }
-
-
 </script>

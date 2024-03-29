@@ -27,8 +27,8 @@ export const login = async (cookies: AstroCookies , request: Request) => {
   const user = await User.findOne({ email });
 
   if(user && (await user.matchPassword(password))){
-    addUser(user);
-    jwToken(cookies, user._id.toString());
+    await addUser(user);
+    await jwToken(cookies, user._id.toString());
     return new Response(JSON.stringify({
       _id     : user._id,
       name    : user.name,

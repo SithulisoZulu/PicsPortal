@@ -1,8 +1,17 @@
 ---
-import FeatureComingSoon from "@components/FeatureComingSoon.astro";
 import Layout from "@layouts/Layout.astro";
+import  Review from '@components/Review.astro'
+import { getReviews } from '@utils/getReviews'
+import type { IReview } from "@interfaces/IReview";
+
+const reviews = await  getReviews()
 ---
 <Layout SITE_PAGE="Reviews">
-    <FeatureComingSoon show={false} />
-    <div class="mb-16"></div>
+    <div class="md:px-20 xl:px-40 mt-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4  mt-5 align-middle gap-2 px-5">
+            {
+                reviews?.map((review: IReview) => <Review review={review} /> )
+            }       
+        </div>
+    </div>
 </Layout>

@@ -19,6 +19,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.0.3",
     "css.gg": "^2.1.1",
+    "date-fns": "^3.6.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.2",
     "nanostores": "^0.10.0",

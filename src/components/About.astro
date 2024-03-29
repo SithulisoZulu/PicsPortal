@@ -64,21 +64,37 @@ import Input from "@components/UI/Input.astro";
 
       <!-- Card -->
       <div class="mt-5 p-4 relative  bg-white border rounded-xl sm:mt-10 md:p-10 text-start">
-        <form>
-          <div class="mb-4 sm:mb-8">
-            <label for="hs-feedback-post-comment-name-1" class="block mb-2 text-sm font-medium">Full name</label>
-            <Input id="fullName" name="fullName" placeholder="Fullname" required={true} type="text"/>
+        <form id="reviewForm" action="/api/reviews/review.json" method="POST">
+          <div class="md:flex gap-2">
+            <div class="mb-4 sm:mb-4 w-full">
+              <label for="hs-feedback-post-comment-name-1" class="block mb-2 text-sm font-medium">Full name</label>
+              <Input id="fullName" name="fullName" placeholder="Fullname" required={true} type="text"/>
+            </div>
+
+            <div class="mb-4 sm:mb-4 w-full">
+              <label for="hs-feedback-post-comment-email-1" class="block mb-2 text-sm font-medium">Email address</label>
+              <Input id="email" name="email" placeholder="Email Address" required={true} type="email" />
+            </div>
           </div>
 
-          <div class="mb-4 sm:mb-8">
-            <label for="hs-feedback-post-comment-email-1" class="block mb-2 text-sm font-medium">Email address</label>
-            <Input id="fullName" name="fullName" placeholder="Fullname" required={true} type="email" />
+          <!-- Rating -->
+          <div class="w-full">
+            <label for="rating" class="block mb-2 text-sm font-medium">Rate us</label>
+            <select id="rating" name="rating" class="w-full bg-transparent p-3 ring-1 ring-gray-300 ring-inset focus:ring-inset focus:ring-sky-600 rounded-md mb-2"  data-mdb-filter="true">
+                <option selected disabled>Rate us</option>
+                <option value="5">★★★★★ 🌟</option>
+                <option value="4">★★★★☆ 😃</option>
+                <option value="3">★★★☆☆ 🙂</option>
+                <option value="2">★★☆☆☆ 😐</option>
+                <option value="1">★☆☆☆☆ 😞</option>
+                <option value="0">☆☆☆☆☆ 😡</option>
+              </select>
           </div>
 
           <div>
-            <label for="hs-feedback-post-comment-textarea-1" class="block mb-2 text-sm font-mediu">Review</label>
+            <label for="review" class="block mb-2 text-sm font-mediu">Review</label>
             <div class="mt-1">
-              <textarea id="hs-feedback-post-comment-textarea-1" name="hs-feedback-post-comment-textarea-1" rows="3" class="form-input py-3 px-4 block w-full rounded-lg text-semibold border-0 ring-1 ring-gray-300 ring-inset  focus:ring-inset focus:ring-sky-600 disabled:opacity-50 disabled:pointer-events-none me-2 sm:text-sm sm:leading-6  invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" placeholder="Leave your review here..."></textarea>
+              <textarea id="review" name="review" rows="3" class="py-3 px-4 block w-full rounded-lg text-semibold border-0 ring-1 ring-gray-300 ring-inset  focus:ring-inset focus:ring-sky-600 disabled:opacity-50 disabled:pointer-events-none me-2 sm:text-sm sm:leading-6  invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" placeholder="Leave your review here..."></textarea>
             </div>
           </div>
 
@@ -115,3 +131,18 @@ import Input from "@components/UI/Input.astro";
   <!-- ========== FOOTER ========== -->
   <Footer />
   <!-- ========== END FOOTER ========== -->
+  
+<!-- <script>
+  const form = document.getElementById("reviewForm") as HTMLFormElement;
+
+  form?.addEventListener("submit", async () => {
+    const data = new FormData(form);
+
+    const res = await fetch ('/api/review.json', {
+        method: 'POST',
+        body: data,
+    });
+
+    console.log(res.json())
+  })
+</script> -->

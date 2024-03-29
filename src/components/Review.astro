@@ -1,0 +1,44 @@
+---
+import Avatar from "@components/Avatar.astro";
+import type { IReview } from "@interfaces/IReview";
+import { formatDistanceToNow } from 'date-fns'
+
+interface Props {
+    review: IReview
+}
+const { review }: {review: IReview} = Astro.props;
+---
+<style>
+    .icon{
+		font-size:10px;
+	}
+</style>
+<div class="bg-white shadow:md rounded-md p-5 hover:shadow-lg transition-all duration-500 ease-in-out cursor-pointer">
+    <div class="flex flex-col md:flex-row gap-3">
+        <Avatar avatar={review.fullName.charAt(0)}/> 
+        <div class="flex flex-col md:flex-row items-center justify-around">
+            <div class="flex flex-col">
+                <h1 class="font-bold text-lg capitalize -mt-2">{review?.fullName}</h1>
+                <div class="flex gap-1">
+                    <div>
+                        {
+                            review?.rating < 1 &&(
+                            <span><i class="fas fa-star text-warning"></i></span>
+                        <span ><i class="far fa-star text-warning"></i></span>
+                        <span ><i class="fas fa-star text-warning"></i></span>
+                        <span ><i class="fas fa-star text-warning"></i></span>
+                        <span ><i class="fas fa-star text-warning"></i></span>
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
+            <p class="text-gray-500 text-sm ml-20 -mt-4">{formatDistanceToNow(review.createdAt, {addSuffix: true})}</p>
+        </div>
+    </div>
+    <p class="pt-4 text-sm text-gray-600 truncate-">
+        '{
+            review.review
+        }'
+    </p>
+</div>

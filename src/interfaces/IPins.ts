@@ -9,10 +9,9 @@
  * @property {[]} Photos - The Photos property.
  */
 export interface IPins{
-    photos: [],
-    width : string,
-    height: string,
-    url   : string,
-    id    : string,
-    Photos: []
+    photos       : [],
+    per_page     : number,
+    page         : number,
+    total_results: number,
+    next_page    : string,
 }
