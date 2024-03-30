@@ -1,9 +1,11 @@
 ---
 //#region imports
-import { Link } from '@components/UI';
 import { Image } from 'astro:assets';
+import { Link } from '@components/UI';
 import type { IPin } from '@interfaces/IPin';
 import type { ILike } from '@interfaces/ILike';
+
+import { $user } from '@store/userStore';
 //#endregion
 
 interface Props {
@@ -11,15 +13,15 @@ interface Props {
     likes : ILike[]
     target: string
 };
-
 const { pin, likes, target } = Astro.props;
+
 const saved = likes?.some((like: ILike) => {
   return like.photoId.toString() === pin.id.toString();
 });
 ---
 <div class="m-2">
     <div class="relative cursor-none w-auto rounded-lg overflow-hidden transition-all duration-500 ease-in-out Photo" id="Photo">
-        <Image width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="eager" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
+        <img width={pin?.width} height={pin?.height} class="h-full w-96 md:h-auto md:w-full rounded-lg" loading="eager" src={pin.src.original ? pin.src.original : pin.src.medium}  alt={pin.alt} 
         />
         <div class="hidden absolute top-0 w-[385px] md:w-full h-full flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50 hover:bg-blackOverlay menu animate-slide-fwd rounded-lg transition-all duration-500 ease-in-out" id="menu">
             <div class="flex items-center justify-between">
@@ -35,7 +37,7 @@ const saved = likes?.some((like: ILike) => {
                     !saved && 
                     (
                         <div>
-                            <button type="submit" class={`bg-rose-500 opacity-70 hover:opacity-100 text-white  p-2 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none`} id="likeButton"
+                            <button type="submit" class={`bg-rose-500 opacity-70 hover:opacity-100 text-white  p-2 font-bold rounded-full flex items-center justify-center hover:shadow-md outline-none ${$user?.value?.length === 0 ? 'pointer-events-none' : ''}`} id="likeButton"
                             data-photo-url={pin.src.original ? pin.src.original : pin.src.medium}
                             data-photo-id={pin?.id ? pin?.id : '00000000'} 
                             >

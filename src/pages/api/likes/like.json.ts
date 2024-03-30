@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
+import { likeImage } from "@controllers/likeController";
+import { $user } from '@store/userStore';
 import connectDB from "@db/db";
-import { $user } from "@store/userStore.js";
-import { likeImage } from "@controllers/likeController.js";
 
 /**
  * Handles the POST request for the API route.
@@ -11,9 +11,10 @@ import { likeImage } from "@controllers/likeController.js";
  */
 export const POST: APIRoute = async ({ request, redirect }) => {
 
-  if(!$user?.value || $user.value.length === 0 || $user.value![0]._id === "" )
+  if(!$user?.value || $user.value.length === 0 || $user.value![0]._id === "")
   {
-    return redirect("/auth");
+    const url ="/auth"
+    return redirect(url);
   }
 
   console.log($user)

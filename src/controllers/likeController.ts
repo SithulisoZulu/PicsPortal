@@ -1,5 +1,5 @@
-import type { ILike } from "../interfaces/ILike";
-import { Like } from "../models/likeModel";
+import type { ILike } from "@interfaces/ILike";
+import { Like } from "@models/likeModel";
 
 /**
  * Creates a new like for an image.
