@@ -12,6 +12,7 @@ export function addUser(user: IUser) {
     if(user._id !== '' && user._id !== undefined && user._id !== null)
     {
         $user.set([user]);
+        console.log(user)
     }
     else{
         $user.set([]);
