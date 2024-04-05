@@ -1,5 +1,6 @@
 ---
 import { SITE_NAME } from "../constants";
+const id =  Astro.params.id;
 ---
   <div id="hs-danger-alert" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
     <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
@@ -36,10 +37,47 @@ import { SITE_NAME } from "../constants";
           <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" data-hs-overlay="#hs-danger-alert">
             Cancel
           </button>
-          <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none" href="#">
-            Delete personal account
-          </a>
+          <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none"id="deleteBtn" data-id={id}>
+            <span>Delete personal account</span>
+            <div id="dealeteLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-white rounded-full transition-all duration-500 ease-in-out" role="status" aria-label="loading">
+              <span class="sr-only">Loading...</span>
+          </div>
+          </button>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+
+
+const deleteBtns = document.querySelectorAll<HTMLButtonElement>('[data-id]');
+
+    deleteBtns.forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        deleteAccount(btn, e);
+      });
+    });
+
+  async function deleteAccount(btn: HTMLButtonElement, e: Event) {
+  e.preventDefault();
+  const loader = btn.children[1] as HTMLDivElement;
+  loader.classList.remove('hidden');
+
+  const id = btn.dataset.id as string;
+  interface Response {
+    message: string;
+  }
+
+  const res = await fetch(`/api/auth/${id}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+
+  const { message }: Response = await res.json();
+  console.log(message);
+  location.replace("/")
+}
+  </script>

@@ -1,7 +1,8 @@
-import type { AstroCookies } from "astro";
+import jwToken from "../utils/jwToken";
 import { User } from "../models/userModel";
 import { addUser } from "../store/userStore";
-import jwToken from "../utils/jwToken";
+import { Like } from "@models/likeModel";
+import type { AstroCookies } from "astro";
 
 /**
  * Logs in a user by validating their email and password.
@@ -55,9 +56,9 @@ export const login = async (cookies: AstroCookies , request: Request) => {
  * @throws Error if the user already exists.
  */
 export const register = async (cookies: AstroCookies, request: Request) => {
-  const data = await request.formData();
-  const email = data.get("email");
-  const name = data.get("name");
+  const data     = await request.formData();
+  const email    = data.get("email");
+  const name     = data.get("name");
   const password = data.get("password");
   
   if (!name || !email || !password) {
@@ -96,6 +97,12 @@ export const register = async (cookies: AstroCookies, request: Request) => {
   }
 }
 
+/**
+ * Deletes the JWT token from the AstroCookies object, effectively logging out the user.
+ * 
+ * @param cookies - The AstroCookies object containing the user's cookies.
+ * @returns The deleted JWT token, or null if the token does not exist.
+ */
 export const logout = async(cookies: AstroCookies) => {
   cookies.delete('jwToken');
   const token = cookies.get('jwToken');
@@ -111,8 +118,8 @@ export const logout = async(cookies: AstroCookies) => {
  * @throws Error if any required fields are missing, if the user does not exist, or if the user update fails.
  */
 export const update = async(data : any) => {
-  const email = data.get("email");
-  const name = data.get("name");
+  const email    = data.get("email");
+  const name     = data.get("name");
   const password = data.get("password");
   
   if (!name || !email || !password) {
@@ -147,4 +154,27 @@ export const update = async(data : any) => {
  */
 export const getUser = async(email: string) => {
   return await User.findOne({ email });
+}
+
+/**
+ * Deletes a user account.
+ * 
+ * @param {string} id - The ID of the user to be deleted.
+ * @returns {Promise<User>} - The deleted user object.
+ */
+export const deleteAccount = async(id: string) => {
+  if(!id) return new Response("Invalid request", {status: 400});
+  const user = await  User.findByIdAndDelete(id);
+  const newUser = {
+    _id      : '',
+    name     : '',
+    email    : '',
+    password : '',
+    createdAt: '',
+    updatedAt: '',
+    matchPassword: Function
+  }
+  await Like.deleteMany({ userId: id })
+  addUser(newUser)
+  return user
 }

@@ -6,41 +6,42 @@ import ProfileLayout from "@layouts/Layout.astro";
 <ProfileLayout SITE_PAGE={"Contact"}>
     <div class="flex flex-col justify-center items-center">
         <h1 class="mt-5 text-2xl font-bold">Get in touch</h1>
-        <p class="text-base text-gray-500 px-5 md:p-0">Are you having any issues using our website? Lets chat we can help.</p>
+        <p class="text-gray-500 px-5 md:p-0 text-sm">Are you having any issues using our website? Lets chat we can help.</p>
     </div>
-    <div class="flex flex-col p-5 md:p-0 md:flex-row justify-center itmes-center gap-7 mt-10">
-            <div class="border border-gray-500 border-opacity-35 rounded-md flex flex-col justify-start items-start p-4 pr-14 hover:shadow-md transition-all duration-500 ease-in-out">
-                <div class="p-2 py-1 bg-rose-500 text-rose-600 bg-opacity-50 rounded-md">
+    <div class="flex flex-col p-5 md:p-0 md:flex-row justify-center itmes-center gap-3 mt-10">
+        
+            <div class="bg-white rounded-md flex flex-col justify-start items-start p-8 pr-16 hover:shadow-md transition-all duration-500 ease-in-out">
+                <div class="p-2 py-1 bg-black text-white rounded-md">
                     <i class="fas fa-comment-dots"></i>
                 </div>
                 <div class="mt-6">
-                    <h2 class="font-bold text-lg">Chat to support</h2>
+                    <h2 class="font-bold text-2xl">Chat to support</h2>
                 </div>
-                <p class="font-smibold text-sm">We are here to help</p>
+                <p class="font-smibold text-base text-gray-500">We are here to help</p>
 
-                <a href="/" class="mt-3 rounded-md p-2 border border-gray-500 border-opacity-35">Chat to support</a>
+                <a href="/" class="mt-5 bg-black p-2 px-4 rounded-full text-white font-bold">Chat to support</a>
             </div>
-            <div class="border border-gray-500 border-opacity-35 rounded-md flex flex-col justify-start items-start p-4 pr-14 hover:shadow-md transition-all duration-500 ease-in-out">
-                <div class="p-2 py-1 bg-rose-500 text-rose-600 bg-opacity-50 rounded-md">
+            <div class="bg-white rounded-md flex flex-col justify-start items-start p-8 pr-16 hover:shadow-md transition-all duration-500 ease-in-out">
+                <div class="p-2 py-1 bg-black text-white rounded-md">
                     <i class="fa fa-globe" aria-hidden="true"></i>
                 </div>
                 <div class="mt-6">
-                    <h2 class="font-bold text-lg">Visit us</h2>
+                    <h2 class="font-bold text-2xl">Visit us</h2>
                 </div>
-                <p class="font-smibold text-sm">Visit out website</p>
+                <p class="font-smibold text-base text-gray-500">Visit out website</p>
 
-                <a href="/" class="mt-3 rounded-md p-2 border border-gray-500 border-opacity-35">oceanoftech.com</a>
+                <a href="/" class="mt-5 bg-transparent ring-1 ring-black p-2 px-4 rounded-full font-bold hover:bg-black hover:text-white  transition-all duration-500 ease-in-out">oceanoftech.com</a>
             </div>
-            <div class="border border-gray-500 border-opacity-35 rounded-md flex flex-col justify-start items-start p-4 pr-14 hover:shadow-md transition-all duration-500 ease-in-out">
-                <div class="p-2 py-1 bg-rose-500 text-rose-600 bg-opacity-50 rounded-md">
+            <div class="bg-white rounded-md flex flex-col justify-start items-start p-8 pr-16 hover:shadow-md transition-all duration-500 ease-in-out">
+                <div class="p-2 py-1 bg-black text-white rounded-md">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                 </div>
                 <div class="mt-6">
-                    <h2 class="font-bold text-lg">Call us</h2>
+                    <h2 class="font-bold text-2xl">Call us</h2>
                 </div>
-                <p class="font-smibold text-sm">Mon - Fri 8am to 5pm</p>
+                <p class="font-smibold text-base text-gray-500">Mon - Fri 8am to 5pm</p>
 
-                <a href="/" class="mt-3 rounded-md p-2 border border-gray-500 border-opacity-35">Call our team</a>
+                <a href="/" class="mt-5 bg-transparent ring-1 ring-black p-2 px-4 rounded-full font-bold hover:bg-black hover:text-white  transition-all duration-500 ease-in-out">Call our team</a>
             </div>
     </div>
 
@@ -48,15 +49,15 @@ import ProfileLayout from "@layouts/Layout.astro";
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <div class="mx-auto max-w-2xl">
         <div class="text-center">
-            <h2 class="text-xl text-gray-800 font-bold sm:text-3xl">
+            <h2 class="mt-5 text-2xl font-bold">
             Mesage us
             </h2>
-            <p class="text-base text-gray-500 px-5 md:p-0">We will get back to you within 24 hours.</p>
+            <p class="text-sm text-gray-500 px-5 md:p-0">We will get back to you within 24 hours.</p>
         </div>
 
         <!-- Card -->
         <div class="mt-5 p-4 relative  bg-white border rounded-xl sm:mt-10 md:p-10 text-start">
-            <form>
+            <form id="messageForm" action="/api/messages/message.json" method="POST">
                 <div class="flex flex-col md:flex-row justify-center items-center w-full gap-3">
                     <div class="mb-4 sm:mb-8 w-full">
                     <label for="name" class="block mb-2 text-sm font-medium">Name</label>
@@ -68,27 +69,31 @@ import ProfileLayout from "@layouts/Layout.astro";
                     </div>
 
                 </div>
-
-            <div class="mb-4 sm:mb-8">
-                <label for="hs-feedback-post-comment-email-1" class="block mb-2 text-sm font-medium">Email address</label>
-                <Input id="email" name="email" placeholder="Enter email address" required={true} type="email" />
-            </div>
-
-            <div class="mb-4 sm:mb-8">
-                <label for="hs-feedback-post-comment-email-1" class="block mb-2 text-sm font-medium">Contact number</label>
-                <Input id="contact" name="contact" placeholder="Enter contact number" required={true} type="email" />
-            </div>
-
-            <div>
-                <label for="hs-feedback-post-comment-textarea-1" class="block mb-2 text-sm font-mediu">message</label>
-                <div class="mt-1">
-                <textarea id="message" name="message" rows="3" class="form-input py-3 px-4 block w-full rounded-lg text-semibold border-0 ring-1 ring-gray-300 ring-inset  focus:ring-inset focus:ring-sky-600 disabled:opacity-50 disabled:pointer-events-none me-2 sm:text-sm sm:leading-6  invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" placeholder="Leave your message here..."></textarea>
+                <div class="mb-4 sm:mb-8">
+                    <label for="hs-feedback-post-comment-email-1" class="block mb-2 text-sm font-medium">Email address</label>
+                    <Input id="email" name="email" placeholder="Enter email address" required={true} type="email" />
                 </div>
-            </div>
-
-            <div class="mt-6 grid">
-                <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none ">Submit</button>
-            </div>
+                <div class="mb-4 sm:mb-8">
+                    <label for="hs-feedback-post-comment-email-1" class="block mb-2 text-sm font-medium">Contact number</label>
+                    <Input id="contact" name="contact" placeholder="Enter contact number" required={true} type="text" />
+                </div>
+                <div>
+                    <label for="hs-feedback-post-comment-textarea-1" class="block mb-2 text-sm font-mediu">message</label>
+                    <div class="mt-1">
+                    <textarea id="message" name="message" rows="3" class="form-input py-3 px-4 block w-full rounded-lg text-semibold border-0 ring-1 ring-gray-300 ring-inset  focus:ring-inset focus:ring-sky-600 disabled:opacity-50 disabled:pointer-events-none me-2 sm:text-sm sm:leading-6  invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500" placeholder="Leave your message here..."></textarea>
+                    </div>
+                </div>
+                <div class="mt-6 grid">
+                    <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-opacity-90 disabled:opacity-50 disabled:pointer-events-none"
+                    id="submit"
+                    > 
+                    Submit 
+                    <i class="fa fa-paper-plane" aria-hidden="true" id="submitIcon"></i>
+                    <div class="hidden animate-spin  size-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading" id="loading">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    </button>
+                </div>
             </form>
         </div>
         <!-- End Card -->

@@ -1,0 +1,21 @@
+---
+import MainLayout from '@layouts/MainLayout.astro'
+import { SITE_NAME } from '../constants'
+---
+<MainLayout SITE_PAGE={'Message submitted'}>
+  <div class="flex flex-col items-center mt-32 top-0 left-0 right-0 w-full">
+      <div class="flex flex-col items-center justify-center bg-white rounded-md p-2 text-center md:w-[580px]">
+            <div class="p-3 text-green-600 px-4 border-2 border-green-600 rounded-full font-bold w-50 h-50">
+            <i class="fa fa-check icon animate-pulse" aria-hidden="true"></i>
+            </div>
+            <h1 class="text-3xl font-extrabold mt-5">Hello, Your message has been successfully submitted to the {SITE_NAME}'s team</h1>
+
+            <p class="mb-10 mt-5 text-base w-[420px]">
+                We're are commited to get back to you, one of our support agents will get back to you within 24hours please hang tight for use!
+            </p>
+
+            <a href="/contact" class="flex items-center justify-center p-3 px-4 hover:shadow-md font-semibold rounded-full bg-black text-white">go back<i class="ml-2 bi bi-emoji-smile"></i>
+            </a>
+      </div>
+  </div>
+</MainLayout>

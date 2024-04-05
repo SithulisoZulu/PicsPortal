@@ -2,8 +2,8 @@
 import Layout from "@layouts/Layout.astro";
 ---
 
-<Layout SITE_PAGE={"404"}>
-    <div class="flex h-[calc(100vh-80px)] items-center justify-center p-5 w-full bg-white">
+<Layout SITE_PAGE={"Error 500"}>
+    <div class="flex items-center justify-center p-5 w-full mt-14 mb-10 top-0 bottom-0">
         <div class="text-center">
           <div class="inline-flex rounded-full bg-red-100 p-4">
             <div class="rounded-full stroke-red-600 bg-red-200 p-4">
@@ -12,6 +12,10 @@ import Layout from "@layouts/Layout.astro";
           </div>
           <h1 class="mt-5 text-[36px] font-bold text-slate-800 lg:text-[50px]">500 - Server error</h1>
           <p class="text-slate-600 mt-5 lg:text-lg">Oops something went wrong. Try to refresh this page or <br> feel free to contact us if the problem presists.</p>
+
+          <div class="mt-10">
+            <a href="/" class="mt-10 ml-10flex items-center w-[300px] justify-center p-3 px-4 hover:shadow-md font-semibold rounded-full bg-black text-white">Take me home <i class="fa-solid fa-square-this-way-up"></i></a>
+          </div>
         </div>
       </div>
 </div>

@@ -4,7 +4,6 @@ import Logosm from '@components/Logosm.astro';
 import ModalCloser from '@components/auth/ModalCloser.astro'
 import Input from '@components/UI/Input.astro'
 import Button from '@components/UI/Button.astro'
-
 ---
 <div id="signinModal" class="fixed xl:mt-24 hs-overlay hidden w-full h-full  top-0 bottom-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
   <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
@@ -66,8 +65,9 @@ import Button from '@components/UI/Button.astro'
                 <p class="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
               </div>
               <!-- End Form Group -->
-
-              <Button type="submit">Signup</Button>
+              <Button type="submit" id="button">
+                Signup <i class="fa fa-user-plus" aria-hidden="true" id="btnIcon"></i>
+              </Button>
             </div>
           </form>
           <!-- End Form -->
@@ -84,22 +84,15 @@ import Button from '@components/UI/Button.astro'
     </div>
   </div>
 </div>
-<!-- <script type="text/javascript">  
-  var myWidget = cloudinary.createUploadWidget({
-    cloudName: 'dpnz1b1ud', 
-    uploadPreset: 'picsPortal'}, (error, result) => { 
-      if (!error && result && result.event === "success") {
-        const photoUrl = result.info.url;
-        localStorage.setItem("url", photoUrl)
-      }
-      if(error)
-      {
-        throw new Error('Failed to upload image')
-      }
-    }
-  )
+<script>
+   
+  const submitBtn = document.getElementById("submit") as HTMLButtonElement;
+	const loader = document.getElementById('loading') as HTMLElement;
+	const submitIcon = document.getElementById('submitIcon') as HTMLElement;
   
-  document.getElementById("upload_widget").addEventListener("click", function(){
-      myWidget.open();
-    }, false);
-</script> -->
+	submitBtn?.addEventListener('click', () => {
+	  loader.classList.remove("hidden")
+	  submitIcon.classList.add("hidden")
+	})
+   
+</script>

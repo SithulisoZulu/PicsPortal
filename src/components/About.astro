@@ -15,7 +15,8 @@ import Input from "@components/UI/Input.astro";
     </h2>
     <p class="mt-5 font-semibold">{SITE_DESCRIPTION}</p>
 
-  <h1 class="text-2xl md:text-3xl font-bold mb-5 mt-10">FAQs</h1>
+  <h1 class="text-2xl md:text-3xl font-bold mb-0  mt-10">FAQs</h1>
+  <p class="font-smibold text-base text-gray-500 mb-7">These are the frequantly asked questions</p>
   <div class="hs-accordion-group mb-5">
     <div class="hs-accordion hs-accordion-active:border-gray-200 bg-white border border-transparent rounded-xl " id="hs-active-bordered-heading-one">
       <button class="hs-accordion-toggle hs-accordion-active:text-blue-600 inline-flex justify-between items-center gap-x-3 w-full font-semibold text-start text-gray-800 py-4 px-5 hover:text-gray-500 disabled:opacity-50 disabled:pointer-events-none " aria-controls="hs-basic-active-bordered-collapse-one">
@@ -26,10 +27,10 @@ import Input from "@components/UI/Input.astro";
       <div id="hs-basic-active-bordered-collapse-one" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-active-bordered-heading-one">
         <div class="pb-4 px-5">
           <p class="text-gray-800 ">
-            <em>This is how you can download our content.</em> You have to click on the download button on the top left corner of the video of photo you want to download, You will be redirected to a different page where you will see the image or video in full. from that page right click or log press on mobile then press save image.
+            <em>To download our content, please follow these steps:</em> 1. Click on the download button located in the top-left corner of the video or photo you wish to download 2. You will be redirected to a different page where you can view the image or video in full 3. From that page, right-click (or long-press on mobile devices) on the image or video, then select 'Save Image' or 'Save Video'.
             <br/>
             <br/>
-            <em class="mt-3"> <strong>Please Note:</strong> This is a tamporary solution out team is working to provide you with a seamless browsing experience.</em>
+            <em class="mt-3"> <strong>Please Note:</strong> This is a temporary solution as our team is actively working to provide you with a seamless browsing experience.</em>
           </p>
         </div>
       </div>
@@ -43,10 +44,10 @@ import Input from "@components/UI/Input.astro";
       <div id="hs-basic-active-bordered-collapse-two" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="hs-active-bordered-heading-one">
         <div class="pb-4 px-5">
           <p class="text-gray-800 ">
-            {SITE_NAME} Is a free online world of high quality videos and photos for enthusiasts, creatives, and professionals alike.
+            {SITE_NAME} offers a vast collection of high-quality videos and photos, catering to enthusiasts, creatives, and professionals alike.
             <br/>
             <br/>
-            <em class="mt-3"> <strong>Please Note:</strong> We intend to keep this planform free forever! 🎉.</em>
+            <em class="mt-3"> <strong>Please Note:</strong> We are committed to keeping this platform completely free forever! 🎉</em>
           </p>
         </div>
       </div>
@@ -60,6 +61,7 @@ import Input from "@components/UI/Input.astro";
         <h2 class="text-xl text-gray-800 font-bold sm:text-3xl">
           Leave a review
         </h2>
+        <p class="font-smibold text-base text-gray-500">Please leave a review of your experience using our platform</p>
       </div>
 
       <!-- Card -->
@@ -99,21 +101,31 @@ import Input from "@components/UI/Input.astro";
           </div>
 
           <div class="mt-6 grid">
-            <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none ">Submit</button>
+            <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-black text-white hover:bg-opacity-90 disabled:opacity-50 disabled:pointer-events-none"
+            id="submit"
+            > 
+              Submit 
+               <i class="fa fa-paper-plane" aria-hidden="true" id="submitIcon"></i>
+               <div class="hidden animate-spin  size-4 border-[3px] border-current border-t-transparent text-white rounded-full" role="status" aria-label="loading" id="loading">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </button>
           </div>
         </form>
+
+        <div class="mt-3 py-3 flex items-center text-sm text-gray-800 before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 ">or</div>
+        
+        <div class="flex items-center justify-center">
+          <a href="/reviews" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm rounded-lg border border-transparent ring-1 ring-black bg-transparent hover:bg-opacity-90 hover:bg-black hover:text-white hover:ring-none transition-all duration-500 ease-in-out disabled:opacity-50 disabled:pointer-events-none font-bold"
+          > 
+            View all reviews
+          </a>
+        </div>
       </div>
       <!-- End Card -->
     </div>
   </div>
   <!-- End Review Form -->
-
-  <div class="px-40">
-    <a href="/reviews" class="flex items-center justify-center p-3 px-4 hover:shadow-md font-semibold rounded-full bg-transparent text-black border border-black"
-    >
-      View all reviews <i class="ml-3 fa fa-star text-yellow-500" aria-hidden="true"></i>
-    </a>
-  </div>
 
   <p class="mt-7 text-sm text-gray-500">
     <div class="inline-flex items-center">
@@ -132,17 +144,15 @@ import Input from "@components/UI/Input.astro";
   <Footer />
   <!-- ========== END FOOTER ========== -->
   
-<!-- <script>
-  const form = document.getElementById("reviewForm") as HTMLFormElement;
-
-  form?.addEventListener("submit", async () => {
-    const data = new FormData(form);
-
-    const res = await fetch ('/api/review.json', {
-        method: 'POST',
-        body: data,
-    });
-
-    console.log(res.json())
-  })
-</script> -->
+<script>
+   
+  const submitBtn = document.getElementById("submit") as HTMLButtonElement;
+	const loader = document.getElementById('loading') as HTMLElement;
+	const submitIcon = document.getElementById('submitIcon') as HTMLElement;
+  
+	submitBtn?.addEventListener('click', () => {
+	  loader.classList.remove("hidden")
+	  submitIcon.classList.add("hidden")
+	})
+   
+</script>

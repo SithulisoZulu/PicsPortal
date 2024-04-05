@@ -3,7 +3,7 @@ import connectDB from "@db/db";
 import { addReview, GetReviews } from "@controllers/reviewController";
 import type { IReview } from "@interfaces/IReview";
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
 
     const connect = await connectDB();
     if(!connect)
@@ -12,12 +12,13 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const review = await addReview(request);
-    return new Response(JSON.stringify({
-        email     : review.email,
-        fullName    :review.fullName,
-        rating : review.rating,
-        review  : review.review,
-    }));
+
+    if(!review)
+    {
+        throw new Error ("No review")
+    }
+    
+    return redirect("/reviews")
 };
 
 export const GET: APIRoute = async({ request }) => {

@@ -40,7 +40,7 @@ import Button from '@components/UI/Button.astro'
               <div>
                 <div class="flex justify-between items-center">
                   <label for="password" class="block text-sm mb-2 ">Password</label>
-                  <a class="text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none cursor-pointer" data-hs-overlay="#hs-modal-recover-account">Forgot password?</a>
+                  <a class="hidden text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none cursor-pointer" data-hs-overlay="#hs-modal-recover-account">Forgot password?</a>
                 </div>
                 <div class="relative">
                   <Input type="password" id="password" name="password" placeholder="Enter your password" required={true} autofocus={false} />
@@ -54,8 +54,9 @@ import Button from '@components/UI/Button.astro'
               </div>
               <!-- End Form Group -->
 
-              <Button type="submit">Sign in</Button>
-              <Button type="submit" outline={true}>Forgot password?</Button>
+              <Button type="submit" id="button">
+                Sign in <i class="fa fa-sign-in" aria-hidden="true" id="btnIcon"></i>
+              </Button>
             </div>
           </form>
           <!-- End Form -->
@@ -71,26 +72,3 @@ import Button from '@components/UI/Button.astro'
     </div>
   </div>
 </div>
-<!-- <script>
-  import { addImage } from '../../store/imageBlobStore.ts'
-const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-
-fileInput?.addEventListener('change', (event) => {
-    const selectedFile = (event?.target as HTMLInputElement)?.files[0]!;
-    
-    if (selectedFile) {
-      addImage(selectedFile);
-        console.log('Selected file:', selectedFile);
-    } else {
-        console.log('No file selected');
-    }
-});
-
-
-
-//   import { imageBlob } from '../../cloudinary/photoUpload.ts'
-//   document.getElementById("uploadPhoto")?.addEventListener("click", function(){
-//     imageBlob("me");
-//     console.log("clicked")
-// }, false);
-</script> -->

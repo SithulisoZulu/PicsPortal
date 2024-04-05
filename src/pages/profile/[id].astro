@@ -17,7 +17,21 @@ const liked = await  getLikes()
     <div class="flex flex-col justify-center items-center top-0 left-0 bottom-0">
         <div class="w-32 h-32 mt-10 bg-gray-400 rounded-full flex justify-center items-center text-3xl font-semibold ">{$user?.value![0]?.name.charAt(0)}</div>
         <h1 class="text-3xl md:text-5xl font-bold mt-4">{$user?.value![0]?.name}</h1>
-        <span class="inline-flex items-center mt-2 gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-500 text-white">Active</span>
+        <div class="inline-flex  items-center mt-2 gap-x-1.5 py-1 px-3 rounded-full text-xs font-bold bg-teal-500 bg-opacity-70 text-white"><i class="fa fa-envelope" aria-hidden="true"></i>
+           {$user?.value![0]?.email}
+          <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs  bg-black text-white font-bold cursor-pointer">change</span>
+        </div>
+        <div class="mt-3">
+          <form action={`${API_BASE_URL}/auth/logout.json`}>
+            <button id="logout" class="focus:text-gray-400"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i>Logout
+                <span>
+                    <div id="logoutLoader" class="hidden animate-spin  size-3 ml-3 border-[3px] border-current border-t-transparent text-black rounded-full dark:text-black" role="status" aria-label="loading">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </span>
+            </button>
+          </form>
+        </div>
 
         <div class="md:px-46 mt-20">
           <div class="w-full">
@@ -94,7 +108,7 @@ const liked = await  getLikes()
                               <div>
                                 <label for="email" class="block text-sm mb-2">Email address</label>
                                 <div class="relative">
-                                  <Input type="email" id="email" name="email" placeholder="Enter email address" required={true} autofocus={false} value={$user?.value![0]?.email}/>
+                                  <Input type="email" id="email" name="email" placeholder="Enter email address" required={true} disabled={true} autofocus={false} value={$user?.value![0]?.email}/>
                                   <div class="hidden absolute inset-y-0 end-0 items-center pointer-events-none pe-3">
                                     <svg class="h-5 w-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
                                       <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
@@ -122,7 +136,7 @@ const liked = await  getLikes()
                               </div>
                               <!-- End Form Group -->
                 
-                              <Button type="submit">Update details <i class="fa fa-edit"></i></Button>
+                              <Button type="submit" id="button">Update details <i class="fa fa-edit" id="btnIcon"></i></Button>
                             </div>
                           </form>
                           <!-- End Form -->

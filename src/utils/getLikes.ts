@@ -12,4 +12,4 @@ export const getLikes = async () => {
             return new Response(`Failed to get user likes ${JSON.stringify(res)}`)
         }
     }
-}
+};
